@@ -98,9 +98,11 @@ def kNN(case_base, new_case, k, dist_meas = "DIST_EUCL", attr_weights = None, LE
 
     assert (dist_meas == "DIST_EUCL" or dist_meas == "DIST_MANH" or dist_meas == "DIST_LEIX")
     assert (case_base_dims == new_case_dims and new_case_n == 1)
+    if attr_weights is not None:
+        assert  attr_weights.shape[0] == case_base_dims and len(attr_weights.shape) == 1
+
     if dist_meas == "DIST_LEIX":
         assert attr_weights is not None and LEIX_map is not None
-        assert  attr_weights.shape[0] == case_base_dims
         assert LEIX_map.shape[1] == case_base_dims
         assert LEIX_alpha >= 0 and LEIX_alpha <= 1
 
@@ -109,6 +111,10 @@ def kNN(case_base, new_case, k, dist_meas = "DIST_EUCL", attr_weights = None, LE
         # Calculate second norm (Euclidean distnace) between the new case and case_base
         new_tiled = np.tile(new_case,(case_base_n,1))
         diff = np.subtract(case_base, new_tiled)
+        if attr_weights is not None:
+            attr_tiled = np.tile(attr_weights, (case_base_n, 1))
+            diff *= attr_tiled
+
         dist_eucl = np.linalg.norm(diff,ord=2, axis=1)
         # Get k minimum (unsorted!!!)
         min_idxs = np.argpartition(dist_eucl,k)[:k]
@@ -119,6 +125,10 @@ def kNN(case_base, new_case, k, dist_meas = "DIST_EUCL", attr_weights = None, LE
         # Calculate first norm (Manhattan distnace) between the new case and case_base
         new_tiled = np.tile(new_case,(case_base_n,1))
         diff = np.subtract(case_base, new_tiled)
+        if attr_weights is not None:
+            attr_tiled = np.tile(attr_weights, (case_base_n, 1))
+            diff *= attr_tiled
+
         dist_manh = np.linalg.norm(diff,ord=1, axis=1)
         # Get k minimum (unsorted!!!)
         min_idxs = np.argpartition(dist_manh,k)[:k]
@@ -242,12 +252,12 @@ if __name__ == "__main__":
  # [ 0.28065987,  0.67775544],
  # [ 0.17296524,  0.63245103]])
 
-    weights = np.array([0.05,0.95])
+    weights = np.array([0.99, 0.01])
 
     case_base = np.random.rand(100,2)
     LEIX_map = None #genfromtxt('LEIX_map.csv', dtype='|S30', skip_header=0, names=None, delimiter=',')
 
-    _, idxs = kNN(case_base,new_case,5,"DIST_MANH", attr_weights=weights, LEIX_map=LEIX_map)
+    _, idxs = kNN(case_base,new_case,5,"DIST_EUCL", attr_weights=weights, LEIX_map=LEIX_map)
     _NNs = case_base[idxs, :]
     _case_base = case_base
     _case_base = np.delete(_case_base, idxs, 0)
