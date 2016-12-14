@@ -117,9 +117,13 @@ def kNN(case_base, new_case, k, dist_meas = "DIST_EUCL", attr_weights = None, LE
 
         dist_eucl = np.linalg.norm(diff,ord=2, axis=1)
         # Get k minimum (unsorted!!!)
-        min_idxs = np.argpartition(dist_eucl,k)[:k]
+        uns_min_idxs = np.argpartition(dist_eucl,k)[:k]
 
-        return dist_eucl[min_idxs], min_idxs
+        uns_red_dists = dist_eucl[uns_min_idxs]
+        s_min_idxs = [i[0] for i in sorted(enumerate(uns_red_dists), key=lambda x: x[1])]
+
+        s_red_dist = uns_red_dists[s_min_idxs]
+        return s_red_dist, s_min_idxs
 
     elif dist_meas == "DIST_MANH":
         # Calculate first norm (Manhattan distnace) between the new case and case_base
@@ -131,20 +135,28 @@ def kNN(case_base, new_case, k, dist_meas = "DIST_EUCL", attr_weights = None, LE
 
         dist_manh = np.linalg.norm(diff,ord=1, axis=1)
         # Get k minimum (unsorted!!!)
-        min_idxs = np.argpartition(dist_manh,k)[:k]
+        uns_min_idxs = np.argpartition(dist_manh,k)[:k]
 
-        return dist_manh[min_idxs], min_idxs
+        uns_red_dists = dist_manh[uns_min_idxs]
+        s_min_idxs = [i[0] for i in sorted(enumerate(uns_red_dists), key=lambda x: x[1])]
+
+        s_red_dist = uns_red_dists[s_min_idxs]
+        return s_red_dist, s_min_idxs
 
     elif dist_meas == "DIST_LEIX":
 
-        dist_leix = np.zeros((case_base_n,1),dtype=int)
+        dist_leix = np.zeros((case_base_n,1),dtype=float)
         for row in range(case_base_n):
             dist_leix[row] = LEIX_dist(new_case, case_base[row], LEIX_map, attr_weights, LEIX_alpha)
 
         # Get k minimum (unsorted!!!)
-        min_idxs = np.argpartition(dist_leix,k)[:k]
+        uns_min_idxs = np.argpartition(dist_leix,k)[:k]
 
-        return dist_leix[min_idxs], min_idxs
+        uns_red_dists = dist_leix[uns_min_idxs]
+        s_min_idxs = [i[0] for i in sorted(enumerate(uns_red_dists), key=lambda x: x[1])]
+
+        s_red_dist = uns_red_dists[s_min_idxs]
+        return s_red_dist, s_min_idxs
 
 
 if __name__ == "__main__":
