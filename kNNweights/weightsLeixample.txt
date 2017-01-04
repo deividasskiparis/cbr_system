@@ -1,0 +1,91 @@
+=== Attribute Selection on all input data ===
+
+Search Method:
+	Attribute ranking.
+
+Attribute Evaluator (supervised, Class (numeric): 80 SalePrice):
+	ReliefF Ranking Filter
+	Instances sampled: all
+	Number of nearest neighbours (k): 10
+	Equal influence nearest neighbours
+
+Ranked attributes:
+ 0.1364237    53 GrLivArea
+ 0.1249523    51 1stFlrSF
+ 0.0962796    50 TotalBsmtSF
+ 0.0946746    52 2ndFlrSF
+ 0.0829488    67 FullBath
+ 0.0756858    24 BsmtExposure
+ 0.0754173    71 OverallQual
+ 0.0714042    64 TotRmsAbvGrd
+ 0.071168     46 MasVnrArea
+ 0.0645074    69 BedroomAbvGr
+ 0.0612522    47 BsmtFinSF1
+ 0.0585545    55 WoodDeckSF
+ 0.0581399    63 Fireplaces
+ 0.0527745    56 OpenPorchSF
+ 0.0471042    19 ExterQual
+ 0.0467443     9 Neighborhood
+ 0.0440125    45 LotArea
+ 0.043101     49 BsmtUnfSF
+ 0.0418662     5 LandContour
+ 0.0418032    31 KitchenQual
+ 0.0400982    54 GarageArea
+ 0.0393699    22 BsmtQual
+ 0.0344279    14 RoofStyle
+ 0.0326642    68 HalfBath
+ 0.0306269    44 LotFrontage
+ 0.0300351     4 LotShape
+ 0.0299846    33 FireplaceQu
+ 0.0280203    15 RoofMatl
+ 0.0259367    74 MSSubClass
+ 0.0249954    13 HouseStyle
+ 0.0231852     8 LandSlope
+ 0.0225821    62 GarageCars
+ 0.0223784    16 Exterior1st
+ 0.0214654    43 SaleCondition
+ 0.0212074    77 ScreenPorch
+ 0.0202236    18 MasVnrType
+ 0.018507     17 Exterior2nd
+ 0.0161087    78 PoolArea
+ 0.0161087    39 PoolQC
+ 0.012108     35 GarageFinish
+ 0.0107959     7 LotConfig
+ 0.0086581    23 BsmtCond
+ 0.0074973    36 GarageQual
+ 0.007491     11 Condition2
+ 0.007469     42 SaleType
+ 0.0064722    27 Heating
+ 0.006128     76 3SsnPorch
+ 0.0057518    65 BsmtFullBath
+ 0.004956     20 ExterCond
+ 0.003276     75 LowQualFinSF
+ 0.0022473    79 MiscVal
+ 0.0014159     2 Street
+ 0.0009495     1 MSZoning
+ 0.0000789    38 PavedDrive
+-0.000106      6 Utilities
+-0.0002733    32 Functional
+-0.0006414    66 BsmtHalfBath
+-0.00068      70 KitchenAbvGr
+-0.0020516    34 GarageType
+-0.0038778    57 EnclosedPorch
+-0.0039438    29 CentralAir
+-0.0040575    10 Condition1
+-0.0052795     3 Alley
+-0.006867     61 MoSold
+-0.007419     37 GarageCond
+-0.0088302    58 YearBuilt
+-0.0092638    48 BsmtFinSF2
+-0.0094654    21 Foundation
+-0.0098519    12 BldgType
+-0.0109676    41 MiscFeature
+-0.0143684    26 BsmtFinType2
+-0.0154341    73 YrSold
+-0.0215609    30 Electrical
+-0.0290324    72 OverallCond
+-0.0321888    40 Fence
+-0.0399192    59 YearRemodAdd
+-0.0414653    28 HeatingQC
+-0.04362      60 GarageYrBlt
+-0.0557917    25 BsmtFinType1
