@@ -1,7 +1,7 @@
 import numpy as np
 from numpy import genfromtxt
 
-def make_LEIX_map(case_base, out_fn = "LEIX_map.csv"):
+def make_LEIX_map(case_base, out_fn = "LEIX_map.csv", headers=False):
     # Map values:
     # Row 0 - Data type
     # Row 1 - Number of modalities
@@ -10,19 +10,23 @@ def make_LEIX_map(case_base, out_fn = "LEIX_map.csv"):
     # Row 4..end - Categorical values
     n, d = case_base.shape
 
-    attr_names = case_base[0,:]
-    case_base = case_base[1:,:]
-
+    if headers:
+        attr_names = case_base[0,:]
+        case_base = case_base[1:,:]
+    else:
+        attr_names = np.arange(1, d + 1)
     LEIX_map = np.chararray((n + 4,d),itemsize=30)
     LEIX_map[:] = ' '
 
     for col in range(d):
         attr = case_base[:, col]
-        attr[attr == ''] = '0'
+        mask = np.where(attr == '')
+
+        attr[mask] = '0'
         att_min = 0
         att_max = 0
         while(True):
-            message = "Attribute " + str(col) + " - " + attr_names[col] + "\n"
+            message = "\nAttribute " + str(col) + " - " + str(attr_names[col]) + "\n"
             message += "Values: [" + str(attr[0]) + ", " + str(attr[1]) + ", " + str(attr[2]) + ", ..., " + str(attr[-1]) + "]\n"
             message += "Whats is the category of the attribute?\n"
             message += "-1: Skip\n"
@@ -41,12 +45,13 @@ def make_LEIX_map(case_base, out_fn = "LEIX_map.csv"):
             continue
 
         if att_cat == '0': #Numerical
-            attr_mapped = attr.astype(np.float)
+            attr_ = attr[attr!='?']
+            attr_mapped = attr_.astype(np.float)
 
             att_min = np.amin(attr_mapped)
             att_max = np.amax(attr_mapped)
 
-            message = "Attribute " + str(col) + " - " + attr_names[col] + "\n"
+            message = "Attribute " + str(col) + " - " + str(attr_names[col]) + "\n"
             message += "Contains values in range [" + str(att_min) + ", " + str(att_max) + "]\n"
             message += "Enter intervals to which you would categorize the attribute.\n"
             message += "(For each value (v1,v2,...,vn) you enter, the variable will be categorized such that\n"
@@ -60,24 +65,34 @@ def make_LEIX_map(case_base, out_fn = "LEIX_map.csv"):
 
         else: #Categorical
             cats = np.unique(attr)
-            no_of_mods = cats.size
+
             if att_cat == '1': #Categorical ordered
                 while(True):
-                    message = "Attribute " + str(col) + " - " + attr_names[col] + " has the following values\n"
+                    message = "Attribute " + str(col) + " - " + str(attr_names[col]) + " has the following values\n"
 
                     for n,val in enumerate(cats):
                         message += str(n) + " : " + val + "\n"
                     message += "Type ids of these attributes in the ascending order\n"
 
 
-                    val_idxs = map(int, raw_input(message).split(","))
-                    _, counts = np.unique(val_idxs,return_counts=True)
+                    # val_idxs = map(int, raw_input(message).split(","))
+                    vals = np.array(raw_input(message).split(","))
+                    _, counts = np.unique(vals,return_counts=True)
                     if np.any(counts != 1):
-                        print "Used the same index twice!"
+                        print "Used the same value twice!"
                         continue
-
-                    cats = [cats[i] for i in val_idxs]
+                    cats_ = np.chararray(len(vals), itemsize=20)
+                    for idx, val in enumerate(vals):
+                        try: # User provided a integer reference
+                            val_ = val.astype(np.int)
+                            cats_[idx] = cats[val_]
+                        except: #User provided a custom text field
+                            cats_[idx] = val
+                    cats = cats_
+                    # cats = [cats[i] for i in val_idxs]
                     break
+
+            no_of_mods = cats.size
 
         # RECORD RESULTS
         # Category
@@ -93,9 +108,11 @@ def make_LEIX_map(case_base, out_fn = "LEIX_map.csv"):
         for c, val in enumerate(cats):
             LEIX_map[c + 4, col] = val
 
-    np.savetxt(out_fn, LEIX_map, fmt='%s', delimiter=',')
+        np.savetxt(out_fn, LEIX_map, fmt='%s', delimiter=',')
 
 if __name__ == "__main__":
-    my_data = genfromtxt('dataFromKaggle/trainRemoveNA.csv', dtype=None, skip_header=0, names=None, delimiter=',')
-    my_data = my_data[:20,:5]
-    make_LEIX_map(my_data)
+    my_data = genfromtxt('dataFromKaggle/trainReorderedRemovedNumNA.csv', dtype=None, names=None, delimiter=',')
+    # my_data = my_data[:,43:]
+    # case_base = np.random.rand(100, 2)
+    # case_base = case_base.astype(dtype='|S30')
+    make_LEIX_map(my_data, headers=True)

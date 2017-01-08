@@ -1,22 +1,25 @@
 import numpy as np
+from Stage0_CaseBase import Retrieved_CaseBase
 
-def CBR_Revise(labels, gt_labels, eval_within = 1000):
+
+def CBR_Revise(ret_CB, eval_within = 1000):
+    assert isinstance(ret_CB, Retrieved_CaseBase)
     # Function compares the labels to ground truth labels. If the labels are numerical, eval_within threshold is
     # used to have equality intervals. If eval_within = 5, 45 == 45+-5
     # Returns number of mismatches
     # labels - np array of values
     # gt_labels - np array of the same shape and same type of values
 
-    assert labels.shape == gt_labels.shape
-    assert labels.dtype == gt_labels.dtype
+    assert ret_CB.reused_label.shape == ret_CB.new_case_y.shape # Same dimensionality
+    assert ret_CB.reused_label.dtype == ret_CB.new_case_y.dtype # Same data type
 
-    if lbls.dtype ==np.dtype(np.float) or lbls.dtype ==np.dtype(np.int):
-        diff = np.abs(labels-gt_labels)
-        error_count = np.sum(diff > eval_within)
+    if lbls.dtype == np.dtype(np.float) or lbls.dtype == np.dtype(np.int):
+        diff = np.abs(ret_CB.reused_label - ret_CB.new_case_y)
+        error_ = np.sum(diff > eval_within)
     else:
-        error_count = np.sum(np.array(labels != gt_labels, dtype=np.bool))
+        error_ = np.sum(np.array(ret_CB.reused_label != ret_CB.new_case_y, dtype=np.int))
 
-    return error_count
+    return error_
 
 if __name__ == "__main__":
     print("Demo run\nComparing arrays:")

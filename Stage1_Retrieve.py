@@ -1,9 +1,10 @@
-import numpy as np
-from kNN import kNN
+from Stage0_CaseBase import Retrieved_CaseBase, Case_Base
 
 
-def CBR_retrieve(case_base, new_case, k):
+def CBR_retrieve(case_base, new_case, new_label, k, dist_meas="DIST_EUCL"):
+    assert isinstance(case_base, Case_Base)
 
-    _, idxs = kNN(case_base, new_case, k, dist_meas="DIST_EUCL")
+    retCB = Retrieved_CaseBase(case_base, new_case, new_label, k, dist_meas=dist_meas)
 
-    return idxs
+    return retCB
+

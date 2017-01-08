@@ -1,6 +1,7 @@
 import numpy as np
 from matplotlib import pyplot as plt
 from numpy import genfromtxt
+from itertools import compress
 
 
 def kNN(case_base, new_case, k, dist_meas = "DIST_EUCL", attr_weights = None, LEIX_map = None, LEIX_alpha = 0.5):
@@ -16,29 +17,43 @@ def kNN(case_base, new_case, k, dist_meas = "DIST_EUCL", attr_weights = None, LE
     def LEIX_dist(vector1, vector2, LEIX_map, attr_weights, LEIX_alpha):
         # Calculates L'Eixample distance between two vectors
         assert vector1.shape == vector2.shape
-        assert vector1.shape == LEIX_map.shape[1]
+        assert vector1.shape[0] == LEIX_map.shape[1]
 
         numr = 0
         denom = 0
         dist = 0
 
+        vec1_allNum = np.zeros(vector1.shape, dtype = np.float)
+        vec2_allNum = np.zeros(vector1.shape, dtype = np.float)
         for col in range(LEIX_map.shape[1]):
-            L_col = LEIX_map[col]
+            L_col = LEIX_map[:, col]
             att_type = L_col[0]
 
             att_val1 = vector1[col]
             att_val2 = vector2[col]
 
-            if att_type == '0' and attr_weights[col] < LEIX_alpha:
-                up_val = L_col[3]
-                low_val = L_col[2]
-                dist = abs(att_val1 - att_val2)/(up_val - low_val)
+            if att_val1 == '?' or att_val2 == '?':
+                continue
 
-            elif (att_type == '0' and attr_weights[col] > LEIX_alpha):
+
+
+            if att_type == '0' and attr_weights[0, col] < LEIX_alpha:
+                att_val1 = float(vector1[col])
+                att_val2 = float(vector2[col])
+
+                up_val = float(L_col[3])
+                low_val = float(L_col[2])
+                dist = float(abs(att_val1 - att_val2))/(up_val - low_val)
+                vec1_allNum[col] = att_val1 /(up_val - low_val)
+                vec2_allNum[col] = att_val2 / (up_val - low_val)
+
+            elif (att_type == '0' and attr_weights[0, col] > LEIX_alpha):
+                att_val1 = float(vector1[col])
+                att_val2 = float(vector2[col])
 
                 cat_val1 = 0
                 cat_val2 = 0
-                n_mods = L_col[1]
+                n_mods = int(L_col[1])
                 for m in range(n_mods-1):
                     # Get the categorical values for both vector attribute values
                     cat_val1 = m
@@ -55,13 +70,15 @@ def kNN(case_base, new_case, k, dist_meas = "DIST_EUCL", attr_weights = None, LE
                     else:
                         break
 
-                dist = abs(cat_val1 - cat_val2)/n_mods
+                dist = float(abs(cat_val1 - cat_val2))/n_mods
+                vec1_allNum[col] = float(cat_val1) / n_mods
+                vec2_allNum[col] = float(cat_val2) / n_mods
 
             elif att_type == '1':
 
                 cat_val1 = 0
                 cat_val2 = 0
-                n_mods = L_col[1]
+                n_mods = int(L_col[1])
                 for m in range(n_mods - 1):
                     # Get the categorical values for both vector attribute values
                     cat_val1 = m
@@ -78,17 +95,21 @@ def kNN(case_base, new_case, k, dist_meas = "DIST_EUCL", attr_weights = None, LE
                     else:
                         continue
 
-                dist = abs(cat_val1 - cat_val2) / n_mods
+                dist = float(abs(cat_val1 - cat_val2)) / n_mods
+                vec1_allNum[col] = float(cat_val1) / n_mods
+                vec2_allNum[col] = float(cat_val2) / n_mods
 
 
             elif att_type == '2':
                 dist = 1 - Kronecker_delta(att_val1, att_val2)
+                vec1_allNum[col] = 0
+                vec2_allNum[col] = dist
 
 
-            numr += np.exp(attr_weights[col] * dist)
-            denom += np.exp(attr_weights[col])
+            numr += np.exp(attr_weights[0, col] * dist)
+            denom += np.exp(attr_weights[0, col])
 
-        return numr/denom
+        return numr/denom, np.array([vec1_allNum]), np.array([vec2_allNum])
 
     new_case_n = new_case.shape[0]
     new_case_dims = new_case.shape[1]
@@ -99,7 +120,7 @@ def kNN(case_base, new_case, k, dist_meas = "DIST_EUCL", attr_weights = None, LE
     assert (dist_meas == "DIST_EUCL" or dist_meas == "DIST_MANH" or dist_meas == "DIST_LEIX")
     assert (case_base_dims == new_case_dims and new_case_n == 1)
     if attr_weights is not None:
-        assert  attr_weights.shape[0] == case_base_dims and len(attr_weights.shape) == 1
+        assert  attr_weights.shape[1] == case_base_dims and attr_weights.shape[0] == 1
 
     if dist_meas == "DIST_LEIX":
         assert attr_weights is not None and LEIX_map is not None
@@ -108,11 +129,32 @@ def kNN(case_base, new_case, k, dist_meas = "DIST_EUCL", attr_weights = None, LE
 
 
     if dist_meas == "DIST_EUCL":
-        # Calculate second norm (Euclidean distnace) between the new case and case_base
+        # Preprocess data
         new_tiled = np.tile(new_case,(case_base_n,1))
+
+        log1 = log2 = False
+        if not (np.issubdtype(new_tiled.dtype, np.float) or np.issubdtype(new_tiled.dtype, np.int)):
+            # String data was loaded, meaning there are missing values
+            log1 = new_tiled == '?'
+
+        if not (np.issubdtype(case_base.dtype, np.float) or np.issubdtype(case_base.dtype, np.int)):
+            # String data was loaded, meaning there are missing values
+            log2 = case_base == '?'
+
+        log = log1 + log2
+        if isinstance(log, np.ndarray):
+            #Change missing values in both array to 0
+            new_tiled[log] = 0
+            case_base[log] = 0
+
+            case_base = case_base.astype(np.float, copy=False)
+            new_tiled = new_tiled.astype(np.float, copy=False)
+
+        # Calculate second norm (Euclidean distnace) between the new case and case_base
+
         diff = np.subtract(case_base, new_tiled)
         if attr_weights is not None:
-            attr_tiled = np.tile(attr_weights, (case_base_n, 1))
+            attr_tiled = np.tile(attr_weights[0], (case_base_n, 1))
             diff *= attr_tiled
 
         dist_eucl = np.linalg.norm(diff,ord=2, axis=1)
@@ -122,15 +164,41 @@ def kNN(case_base, new_case, k, dist_meas = "DIST_EUCL", attr_weights = None, LE
         uns_red_dists = dist_eucl[uns_min_idxs]
         s_min_idxs = [i[0] for i in sorted(enumerate(uns_red_dists), key=lambda x: x[1])]
 
-        s_red_dist = uns_red_dists[s_min_idxs]
-        return s_red_dist, s_min_idxs
+        sorted_idxs = uns_min_idxs[s_min_idxs]
+
+        new_case_allNum = new_tiled[0, :]
+        case_base_allNum = case_base[sorted_idxs, :]
+
+        return uns_red_dists[s_min_idxs], sorted_idxs, new_case_allNum, case_base_allNum
 
     elif dist_meas == "DIST_MANH":
+
+        # Preprocess data
+        new_tiled = np.tile(new_case, (case_base_n, 1))
+
+        log1 = False
+        log2 = False
+        if not (np.issubdtype(new_tiled.dtype, np.float) or np.issubdtype(new_tiled.dtype, np.int)):
+            # String data was loaded, meaning there are missing values
+            log1 = new_tiled == '?'
+
+        if not (np.issubdtype(case_base.dtype, np.float) or np.issubdtype(case_base.dtype, np.int)):
+            # String data was loaded, meaning there are missing values
+            log2 = case_base == '?'
+
+        log = log1 + log2
+        if isinstance(log, np.ndarray):
+            # Change missing values in both array to 0
+            new_tiled[log] = 0
+            case_base[log] = 0
+
+            case_base = case_base.astype(np.float, copy=False)
+            new_tiled = new_tiled.astype(np.float, copy=False)
+
         # Calculate first norm (Manhattan distnace) between the new case and case_base
-        new_tiled = np.tile(new_case,(case_base_n,1))
         diff = np.subtract(case_base, new_tiled)
         if attr_weights is not None:
-            attr_tiled = np.tile(attr_weights, (case_base_n, 1))
+            attr_tiled = np.tile(attr_weights[0], (case_base_n, 1))
             diff *= attr_tiled
 
         dist_manh = np.linalg.norm(diff,ord=1, axis=1)
@@ -140,14 +208,20 @@ def kNN(case_base, new_case, k, dist_meas = "DIST_EUCL", attr_weights = None, LE
         uns_red_dists = dist_manh[uns_min_idxs]
         s_min_idxs = [i[0] for i in sorted(enumerate(uns_red_dists), key=lambda x: x[1])]
 
-        s_red_dist = uns_red_dists[s_min_idxs]
-        return s_red_dist, s_min_idxs
+        sorted_idxs = uns_min_idxs[s_min_idxs]
+
+        new_case_allNum = new_tiled[0, :]
+        case_base_allNum = case_base[sorted_idxs, :]
+
+        return uns_red_dists[s_min_idxs], sorted_idxs, new_case_allNum, case_base_allNum
 
     elif dist_meas == "DIST_LEIX":
 
-        dist_leix = np.zeros((case_base_n,1),dtype=float)
-        for row in range(case_base_n):
-            dist_leix[row] = LEIX_dist(new_case, case_base[row], LEIX_map, attr_weights, LEIX_alpha)
+        dist_leix = np.zeros(case_base_n,dtype=float)
+        dist_leix[0], new_case_allNum, case_base_allNum = LEIX_dist(new_case[0], case_base[0, :], LEIX_map, attr_weights, LEIX_alpha)
+        for row in range(1, case_base_n):
+            dist_leix[row], _, all_num_ = LEIX_dist(new_case[0], case_base[row, :], LEIX_map, attr_weights, LEIX_alpha)
+            case_base_allNum = np.append(case_base_allNum, all_num_,axis=0)
 
         # Get k minimum (unsorted!!!)
         uns_min_idxs = np.argpartition(dist_leix,k)[:k]
@@ -155,12 +229,13 @@ def kNN(case_base, new_case, k, dist_meas = "DIST_EUCL", attr_weights = None, LE
         uns_red_dists = dist_leix[uns_min_idxs]
         s_min_idxs = [i[0] for i in sorted(enumerate(uns_red_dists), key=lambda x: x[1])]
 
-        s_red_dist = uns_red_dists[s_min_idxs]
-        return s_red_dist, s_min_idxs
+        sorted_idxs = uns_min_idxs[s_min_idxs]
+
+        return uns_red_dists[s_min_idxs], sorted_idxs, new_case_allNum, case_base_allNum[sorted_idxs, :]
 
 
 if __name__ == "__main__":
-    new_case = np.random.rand(1,2)
+    # new_case = np.random.rand(1,2)
 
     # new_case = np.array([[0.25,0.75]])
  #    case_base = np.array([[ 0.40461157,  0.55683227],
@@ -264,17 +339,24 @@ if __name__ == "__main__":
  # [ 0.28065987,  0.67775544],
  # [ 0.17296524,  0.63245103]])
 
-    weights = np.array([0.99, 0.01])
+
+    new_case = np.array([[0.54, 0.15]])
+
+    weights = np.array([0.3, 0.3])
 
     case_base = np.random.rand(100,2)
-    LEIX_map = None #genfromtxt('LEIX_map.csv', dtype='|S30', skip_header=0, names=None, delimiter=',')
+    LEIX_map = genfromtxt('LEIX_map.csv', dtype='|S30', skip_header=0, names=None, delimiter=',')
 
-    _, idxs = kNN(case_base,new_case,5,"DIST_EUCL", attr_weights=weights, LEIX_map=LEIX_map)
+    dists, idxs, a1, a2 = kNN(case_base.copy(),new_case,k=5, dist_meas="DIST_LEIX", attr_weights=weights, LEIX_map=LEIX_map)
     _NNs = case_base[idxs, :]
     _case_base = case_base
     _case_base = np.delete(_case_base, idxs, 0)
-    print (_NNs)
-    print (_case_base)
+
+
+    mask = np.where(new_case == '?')
+    new_case[mask] = 0
+    new_case = new_case.astype(dtype=np.float)
+
+
     plt.plot(_case_base[:,0], _case_base[:,1],'bo',new_case[:,0], new_case[:,1],'g*', _NNs[:,0], _NNs[:,1],'rs' )
     plt.show()
-    print("")
