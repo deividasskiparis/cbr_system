@@ -10,6 +10,7 @@ def kNN(case_base, new_case, k, dist_meas = "DIST_EUCL", attr_weights = None, LE
     #               DIST_MANH - Manhattan distance
     #               DIST_LEIX - l'Eixample distance
 
+
     def Kronecker_delta(val1, val2):
         if val1 == val2:
             return 1
@@ -166,7 +167,7 @@ def kNN(case_base, new_case, k, dist_meas = "DIST_EUCL", attr_weights = None, LE
 
         sorted_idxs = uns_min_idxs[s_min_idxs]
 
-        new_case_allNum = new_tiled[0, :]
+        new_case_allNum = np.array([new_tiled[0, :]])
         case_base_allNum = case_base[sorted_idxs, :]
 
         return uns_red_dists[s_min_idxs], sorted_idxs, new_case_allNum, case_base_allNum
@@ -210,7 +211,7 @@ def kNN(case_base, new_case, k, dist_meas = "DIST_EUCL", attr_weights = None, LE
 
         sorted_idxs = uns_min_idxs[s_min_idxs]
 
-        new_case_allNum = new_tiled[0, :]
+        new_case_allNum = np.array([new_tiled[0, :]])
         case_base_allNum = case_base[sorted_idxs, :]
 
         return uns_red_dists[s_min_idxs], sorted_idxs, new_case_allNum, case_base_allNum

@@ -12,9 +12,14 @@ class Case_Base(object): # SIMONS PART
         self.leix_map = None
         self.leix_alpha = None
 
-    def load_data(self, file_name):
+    def load_data_from_file(self, file_name):
         data_all = np.genfromtxt(file_name, dtype=None, names=None, delimiter=',')
         self.data, self.GTlabels = np.hsplit(data_all[1:,:], np.array([data_all.shape[1] - 1]))
+        self.GTlabels = self.GTlabels.astype(np.float, copy=False)
+
+    def load_data(self, X, y):
+        self.data = X
+        self.GTlabels = y
 
     def load_LEIX_map(self, file_name, set_alpha):
         assert set_alpha > 0 and set_alpha < 1
@@ -26,7 +31,7 @@ class Case_Base(object): # SIMONS PART
     pass
 
 class Retrieved_CaseBase(object):
-    def __init__(self, case_base, new_case, new_label, k, dist_meas="DIST_EUCL"):
+    def __init__(self, case_base, k, new_case, new_label=None, dist_meas="DIST_EUCL"):
         self.case_base = case_base
 
         self.new_case = new_case
@@ -58,4 +63,4 @@ class Retrieved_CaseBase(object):
         # Will be used in Retrieve stage
         self.case_base.data = np.append(self.case_base.data, self.new_case, 0)
         self.case_base.GTlabels = np.append(self.case_base.GTlabels, self.reused_label, 0)
-        print ("New case added to the case base")
+        # print ("New case added to the case base")
