@@ -21,7 +21,7 @@ class Case_Base(object): # SIMONS PART
         self.data = X
         self.GTlabels = y
 
-    def load_LEIX_map(self, file_name, set_alpha):
+    def load_LEIX_map(self, file_name, set_alpha=0.3):
         assert set_alpha > 0 and set_alpha < 1
         self.leix_map = np.genfromtxt(file_name, dtype='|S30', names=None, delimiter=',')
         self.leix_alpha = set_alpha
