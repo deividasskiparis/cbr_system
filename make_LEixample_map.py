@@ -111,8 +111,8 @@ def make_LEIX_map(case_base, out_fn = "LEIX_map.csv", headers=False):
         np.savetxt(out_fn, LEIX_map, fmt='%s', delimiter=',')
 
 if __name__ == "__main__":
-    my_data = genfromtxt('dataFromKaggle/trainReorderedRemovedNumNA.csv', dtype=None, names=None, delimiter=',')
+    my_data = genfromtxt('TestSet/housing.csv', dtype=None, names=None, delimiter=',')
     # my_data = my_data[:,43:]
     # case_base = np.random.rand(100, 2)
     # case_base = case_base.astype(dtype='|S30')
-    make_LEIX_map(my_data, headers=True)
+    make_LEIX_map(my_data, headers=True, out_fn="Eix_map_Test.csv")

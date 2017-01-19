@@ -119,7 +119,7 @@ def kNN(case_base, new_case, k, dist_meas = "EUCL", attr_weights = None, LEIX_ma
     case_base_dims = case_base.shape[1]
 
     d_meas = dist_meas[:4]
-    weighted = dist_meas[-2:] == "+W"
+    weighted = (dist_meas[-2:] == "+W" or d_meas == "LEIX")
 
     assert (d_meas == "EUCL" or d_meas == "MANH" or d_meas == "LEIX")
     assert (case_base_dims == new_case_dims and new_case_n == 1)

@@ -9,4 +9,7 @@ def CBR_Reuse(retrieved_case_base):
 
     clfr = LinearRegression()
     clfr.fit(X, Y)
-    retrieved_case_base.reused_label = clfr.predict(retrieved_case_base.NC_all_num)
+    predicted = clfr.predict(retrieved_case_base.NC_all_num)
+    if predicted > 1e+8:
+        predicted = clfr.predict(retrieved_case_base.NC_all_num)
+    retrieved_case_base.reused_label = predicted
