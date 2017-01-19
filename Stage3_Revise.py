@@ -11,7 +11,9 @@ def CBR_Revise(ret_CB):
     assert isinstance(ret_CB, Retrieved_CaseBase)
 
     if ret_CB.new_case_y is None:
-        return 0
+        return 0, 0
+
+    prct = 0
     assert ret_CB.reused_label.shape == ret_CB.new_case_y.shape # Same dimensionality
     assert ret_CB.reused_label.dtype == ret_CB.new_case_y.dtype # Same data type
 

@@ -13,7 +13,7 @@ from Stage4_Retain import CBR_Retain
 
 
 # Load data (For Euclidean and Manhattan distances)
-data_all = np.genfromtxt(fname='dataFromKaggle/train301.csv', dtype=None, names=None, delimiter=',')
+data_all = np.genfromtxt(fname='dataFromKaggle/train79.csv', dtype=None, names=None, delimiter=',')
 
 
 X, y = np.hsplit(data_all[1:, :], np.array([data_all.shape[1] - 1]))
@@ -39,7 +39,7 @@ CB = Case_Base()
 CB.load_LEIX_map(file_name='dataFromKaggle/LEIX_map_20170108_1540.csv', set_alpha=0.9)
 
 # Load feature weights if the weight-sensitive distance is to be used
-CB.load_weights(file_name='kNNweights/weights301.csv')
+CB.load_weights(file_name='kNNweights/weights79.csv')
 
 # Load data into the case base
 CB.load_data(X, y)
@@ -49,7 +49,7 @@ CB_ret = CBR_retrieve(case_base=CB,
                       new_case=new_case_demo_X,
                       new_label=new_case_demo_y,
                       k=3,
-                      dist_meas="EUCL+W")
+                      dist_meas="LEIX")
 
 
 # Stage 2 - Reuse
