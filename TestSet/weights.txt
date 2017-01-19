@@ -1,0 +1,53 @@
+=== Run information ===
+
+Evaluator:    weka.attributeSelection.ReliefFAttributeEval -M -1 -D 1 -K 10
+Search:weka.attributeSelection.Ranker -T -1.7976931348623157E308 -N -1
+Relation:     housing
+Instances:    506
+Attributes:   14
+              CRIM
+              ZN
+              INDUS
+              CHAS
+              NOX
+              RM
+              AGE
+              DIS
+              RAD
+              TAX
+              PTRATIO
+              B
+              LSTAT
+              class
+Evaluation mode:evaluate on all training data
+
+
+
+=== Attribute Selection on all input data ===
+
+Search Method:
+	Attribute ranking.
+
+Attribute Evaluator (supervised, Class (numeric): 14 class):
+	ReliefF Ranking Filter
+	Instances sampled: all
+	Number of nearest neighbours (k): 10
+	Equal influence nearest neighbours
+
+Ranked attributes:
+ 0.050486   6 RM
+ 0.024281  13 LSTAT
+ 0.016588   5 NOX
+ 0.006632   8 DIS
+ 0.004483   4 CHAS
+ 0.001962  12 B
+ 0.001916   2 ZN
+ 0.001914  10 TAX
+ 0.001058   9 RAD
+ 0.000824  11 PTRATIO
+-0.001589   3 INDUS
+-0.002083   7 AGE
+-0.002819   1 CRIM
+
+Selected attributes: 6,13,5,8,4,12,2,10,9,11,3,7,1 : 13
+
