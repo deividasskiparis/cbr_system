@@ -1,9 +1,11 @@
-"""A setuptools based setup module.
-
-See:
-https://packaging.python.org/en/latest/distributing.html
-https://github.com/pypa/sampleproject
-"""
+##@package setup
+# Set up and installation module for CBR engine
+#
+# A setuptools based setup module.
+#
+# To install, run:
+#
+# python setup.py install
 
 # Always prefer setuptools over distutils
 from setuptools import setup, find_packages

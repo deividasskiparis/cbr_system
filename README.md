@@ -1,4 +1,4 @@
-# House Price Prediction CBR #
+# House Price Prediction CBR # {#index}
 
 Coursework for Advanced Machine Learning Topics (AMLT)  
 Master of Artificial Intelligence  

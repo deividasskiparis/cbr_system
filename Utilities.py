@@ -1,20 +1,44 @@
+##@package Utilities
+# Package containing helper function for CBR cycle
+#
+# This package contains:
+# 1. Case_Base object used to represent the database.
+# 2. Retrieved_CaseBase which is a container for running the CBR cycle. Contains all the necessary information to
+# complete all the sage of CBR cycle
+
+# Authors:  Deividas Skiparis [deividas.skiparis@outlook.com]
+#           Jerome Charrier
+#           Daniel Siqueira
+#           Simon Savornin
+# Advanced Machine Learning Techniques (AMLT)
+# Masters of Artificial Intelligence, 2016
+# Universitat Politecnica de Catalunya, Barcelona
+
 import numpy as np
 import sys, time, datetime
 from sklearn.model_selection import KFold
-
 from kNN import kNN
 
+
+## Returns only columns of the data, for which the selector is True
+#  @param data Array of data [N x D]
+#  @param selectors Boolean values indicating which column to return [1 x D]
+#  @retval  Iterator object of the reduced columns
 def compress_by_col(data, selectors):
     # compress('ABCDEF', [1,0,1,0,1,1]) --> A C E F
     for idx, s in enumerate(selectors):
         if s:
             yield data[:, idx]
 
+## Normalizes values within minimum and maximum values. Works with arrays, which have number represented as strings
+#  @param array Array of data [N x D]
+#  @param norm_feats Boolean vector, indicating which features should be normalized
+#  @param minm Vector of minimum values of each column for normalization.
+#  If not provided, it is extracted from the array
+#  @param maxm Vector of maximum values of each column for normalization.
+#  If not provided, it is extracted from the array
+#  @retval Norm_Array Normalized array
 def normalize(array, norm_feats=None, minm=None, maxm=None):
-    # Function normalizes a given array in the range [0, 1]
-    # norm_feats is a boolean(or int) vector, which specifies which features should be normalized.
-    # Works with arrays, which have number represented as strings
-    # If minm and maxm are provided, the normaliztion is performed within this range
 
     assert isinstance(array, np.ndarray)
     N, D = array.shape
@@ -31,7 +55,6 @@ def normalize(array, norm_feats=None, minm=None, maxm=None):
     # Select only required features
     array_ = np.array(list(compress_by_col(array, norm_feats)))
     array_ = array_.T
-
 
     # Convert to numerical form
     data_type = array.dtype
@@ -63,6 +86,7 @@ def normalize(array, norm_feats=None, minm=None, maxm=None):
     if data_type != np.float:
         array_ = array_.astype(dtype=data_type)
 
+    # If not all of the features were normalized, map back the normalized features to the original array
     if not norm_feats.all():
         ref = 0
         for idx, bl in enumerate(norm_feats):
@@ -74,9 +98,15 @@ def normalize(array, norm_feats=None, minm=None, maxm=None):
         return array_, feat_min, feat_max
 
 
+## Denormalizes value to the original scale, based on minimum and maximum values
+#  @param value Value to be denormalized
+#  @param minm Minimum of the original range
+#  @param maxm Maximum of the original range
+#  @retval denorm_val Denormalized value
 def denormalize(value, minm, maxm):
     return value * (maxm - minm) + minm
 
+## Documentation for the ProgressBar class. This was used for testing to show the progress
 class ProgressBar:
     # Progress Bar
     def __init__(self, max_val):
@@ -93,8 +123,10 @@ class ProgressBar:
                           current,
                           self.max_val))
         sys.stdout.flush()
+
+
+## Matlab style tool for measuring function run-time
 class Timer:
-    # A tool for measuring run time of the function
     def __init__(self):
         self.clockings = []
         pass

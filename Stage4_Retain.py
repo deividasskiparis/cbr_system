@@ -1,30 +1,47 @@
+##@package Stage4_Retain
+# Retention stage of the CBR cycle
+
+# Authors:  Deividas Skiparis [deividas.skiparis@outlook.com]
+#           Jerome Charrier
+#           Daniel Siqueira
+#           Simon Savornin
+# Advanced Machine Learning Techniques (AMLT)
+# Masters of Artificial Intelligence, 2016
+# Universitat Politecnica de Catalunya, Barcelona
+
 import numpy as np
 from Stage0_CaseBase import Retrieved_CaseBase
-import numpy.linalg as la
 
-
+## The function checks if the multi-dimensional point is within the bounds of the array. It is considered to be within
+# bounds if for each dimension, the point's values are between the minimum and maximum of the array.
+#  @param array Multidimensional array, where rows are instances and columns are dimensions
+#  @param point Point to be tested, having the same dimensionality as array
+#  @retval Logical Boolean of whether the point is contained by the array
 def contains_point(array, point):
+    # Find minimum nad maximum
     mins = np.min(array, axis=0)
     maxs = np.max(array, axis=0)
 
+    # Check if point is within bounds
     l1 = point <= maxs
     l2 = point >= mins
-    l = l1 * l2
+    l = l1 * l2  # Bitwise AND
     return l.all()
 
-
+## The main function for performing retention for CBR cycle
+#  @param ret_CB Retrieved_CaseBase
+#  @param strategy Retention strategy ["Always", "Never", "Regular"]
+# strategy="Always" - always retains new cases
+# strategy="Never" - Never retains new cases
+# strategy="Regular" - keeps new cases base on if it is treated as exceptional or non-redundant
+#
+# Exceptional case has standard deviation of retrieved labels > std_thresh * mean_value
+#
+# Redundant cases are included within the multidimensional ellipse, bounded by points of retrieved cases
+# in the feature space
+#    @retval Logical Boolean whether the case was retained or not
+#  @retval prct Ratio of error/'true value'
 def CBR_Retain(ret_CB, strategy="Regular", std_thresh=0.1):
-    # Function retains new case or discards it based on the strategy:
-    # strategy="Always" - always retains new cases
-    # strategy="Never" - Never retains new cases
-    # strategy="Regular" - keeps new cases base on if it is treated as exceptional or non-redundant
-    #
-    # Exceptional case has standard deviation of retrieved labels > std_thresh * mean_value
-    #
-    # Redundant cases are included within the multidimensional ellipse, bounded by points of retrieved cases
-    # in the feature space
-    #
-    # returns - boolean whether the case was retained or not
 
     assert isinstance(ret_CB, Retrieved_CaseBase)
 
@@ -54,10 +71,8 @@ def CBR_Retain(ret_CB, strategy="Regular", std_thresh=0.1):
             # print "Not redundant"
             ret_CB.add_new_case()
             return True
-
         # print "Not exceptional, redundant"
         return False
 
     else:
         raise("No such retention strategy")
-

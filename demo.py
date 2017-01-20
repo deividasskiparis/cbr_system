@@ -1,3 +1,4 @@
+##@package demo
 # This is a demo executable to demonstrate how this CBR system might be used
 
 from Utilities import *
@@ -8,18 +9,16 @@ from Stage3_Revise import CBR_Revise
 from Stage4_Retain import CBR_Retain
 
 # Load data (For Eixample distance)
-# data_all = np.genfromtxt(fname='dataFromKaggle/train79N.csv', dtype=None, names=None, delimiter=',')
-
+# data_all = np.genfromtxt(fname='dataFromKaggle/train79.csv', dtype=None, skip_header=1, delimiter=',')
 
 # Load data (For Euclidean and Manhattan distances)
-data_all = np.genfromtxt(fname='dataFromKaggle/train301.csv', dtype=None, names=None, delimiter=',')
+data_all = np.genfromtxt(fname='dataFromKaggle/train301.csv', dtype=np.float, skip_header=1, delimiter=',')
 
-X, y = np.hsplit(data_all[1:, :], np.array([data_all.shape[1] - 1]))
+X, y = np.hsplit(data_all, np.array([data_all.shape[1] - 1]))
 y = y.astype(np.float, copy=False)
 
 # Determine the shape of the training data
 N,d = X.shape
-
 
 # Get a random row for demo
 idx = np.random.randint(0,N-1)
@@ -38,13 +37,16 @@ CB.load_LEIX_map(file_name='dataFromKaggle/LEIX_map_20170119_1715.csv', set_alph
 # Load feature weights if the weight-sensitive distance is to be used
 CB.load_weights(file_name='kNNweights/weights301.csv')
 
-# Load data into the case base
-# Select features to normalize. Known from the data, only the following features are numerical
-# feat_select = np.zeros( D, dtype=bool)
-# feat_select[43:59] = True
-# feat_select[61:69] = True
-# feat_select[72] = True
-# feat_select[74:78] = True
+# FOR EIXAMPLE DISNTACE ONLY
+    # Load data into the case base
+    # Select features to normalize. Known from the data, only the following features are numerical
+    # feat_select = np.zeros( D, dtype=bool)
+    # feat_select[43:59] = True
+    # feat_select[61:69] = True
+    # feat_select[72] = True
+    # feat_select[74:78] = True
+# CB.load_data(X, y, norm_feats=True, feats_select=feat_select, norm_labels=True)
+
 
 CB.load_data(X, y, norm_feats=True, feats_select=None, norm_labels=True)
 
@@ -63,7 +65,7 @@ CBR_Reuse(CB_ret)
 error_reuse, prct_error = CBR_Revise(CB_ret)
 
 # Stage 4 - Retain
-retained = CBR_Retain(CB_ret, std_thresh=0.015)
+retained = CBR_Retain(CB_ret, strategy="Regular", std_thresh=0.015)
 
 # Print some statistics
 print "New case label - ", new_case_demo_y
