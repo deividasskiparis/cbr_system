@@ -1,8 +1,9 @@
 # This is module containing definition for the main Case Base object and the temporary Retrieved Case Base. The latter
 # is mostly used as an information carrier withing the CBR cycle
 
-import numpy as np
-from kNN import kNN
+from Utilities import *
+
+
 
 class Case_Base(object): # SIMONS PART
     def __init__(self):
@@ -12,14 +13,20 @@ class Case_Base(object): # SIMONS PART
         self.leix_map = None
         self.leix_alpha = None
 
-    def load_data_from_file(self, file_name):
-        data_all = np.genfromtxt(file_name, dtype=None, names=None, delimiter=',')
-        self.data, self.GTlabels = np.hsplit(data_all[1:,:], np.array([data_all.shape[1] - 1]))
-        self.GTlabels = self.GTlabels.astype(np.float, copy=False)
+    def load_data(self, X, y, norm_feats=False, feats_select=None, norm_labels=True):
+        if norm_feats:
+            self.data, self.feat_min, self.feat_max = normalize(X, feats_select)
+            self.norm_feats = feats_select
+            self.data_normalized = True
+        else:
+            self.data, self.feat_min, self.feat_max = X, None, None
 
-    def load_data(self, X, y):
-        self.data = X
-        self.GTlabels = y
+        if norm_labels:
+            self.GTlabels, self.lbl_min, self.lbl_max = normalize(y)
+            self.labels_normalized = True
+        else:
+            self.GTlabels, self.lbl_min, self.lbl_max = y, 0, 1
+
 
     def load_LEIX_map(self, file_name, set_alpha=0.3):
         assert set_alpha > 0 and set_alpha < 1
@@ -30,12 +37,21 @@ class Case_Base(object): # SIMONS PART
         self.weights = np.array([np.genfromtxt(file_name, dtype=np.float, names=None, delimiter=',')])
     pass
 
+
 class Retrieved_CaseBase(object):
     def __init__(self, case_base, k, new_case, new_label=None, dist_meas="DIST_EUCL"):
         self.case_base = case_base
 
-        self.new_case = new_case
-        self.new_case_y  = new_label #Label
+        if self.case_base.data_normalized:
+            self.new_case,_,_ = normalize(new_case, case_base.norm_feats,case_base.feat_min, case_base.feat_max)
+        else:
+            self.new_case = new_case
+
+        if self.case_base.labels_normalized and new_label is not None:
+            self.new_case_y,_,_ = normalize(new_label,minm=case_base.lbl_min, maxm=case_base.lbl_max)
+        else:
+            self.new_case_y  = new_label #Label
+
         self.K = k
         self.dist_meas = dist_meas
 

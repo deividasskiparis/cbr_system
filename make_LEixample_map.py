@@ -59,7 +59,11 @@ def make_LEIX_map(case_base, out_fn = "LEIX_map.csv", headers=False):
 
             intvls_input = raw_input(message)
 
-            cats = intvls_input.split(",")
+            cats = np.array(intvls_input.split(","))
+            dt_type = cats.dtype
+            cats_ = cats.astype(np.float)
+            cats_ = (cats_ - att_min)/(att_max - att_min)
+            cats = cats_.astype(dt_type)
 
             no_of_mods = len(cats) + 1
 

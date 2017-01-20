@@ -16,6 +16,7 @@ def kNN(case_base, new_case, k, dist_meas = "EUCL", attr_weights = None, LEIX_ma
             return 1
         return 0
     def LEIX_dist(vector1, vector2, LEIX_map, attr_weights, LEIX_alpha):
+        np.seterr(all='warn')
         # Calculates L'Eixample distance between two vectors
         assert vector1.shape == vector2.shape
         assert vector1.shape[0] == LEIX_map.shape[1]
@@ -106,9 +107,10 @@ def kNN(case_base, new_case, k, dist_meas = "EUCL", attr_weights = None, LEIX_ma
                 vec1_allNum[col] = 0
                 vec2_allNum[col] = dist
 
+            with np.errstate(over='ignore'):
+                numr += np.exp(attr_weights[0, col] * dist)
+                denom += np.exp(attr_weights[0, col])
 
-            numr += np.exp(attr_weights[0, col] * dist)
-            denom += np.exp(attr_weights[0, col])
 
         return numr/denom, np.array([vec1_allNum]), np.array([vec2_allNum])
 
@@ -152,8 +154,8 @@ def kNN(case_base, new_case, k, dist_meas = "EUCL", attr_weights = None, LEIX_ma
             new_tiled[log] = 0
             case_base[log] = 0
 
-            case_base = case_base.astype(np.float, copy=False)
-            new_tiled = new_tiled.astype(np.float, copy=False)
+        case_base = case_base.astype(np.float, copy=False)
+        new_tiled = new_tiled.astype(np.float, copy=False)
 
         # Calculate second norm (Euclidean distnace) between the new case and case_base
 
