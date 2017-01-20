@@ -54,7 +54,10 @@ def normalize(array, norm_feats=None, minm=None, maxm=None):
     feat_max_tiled = np.tile(feat_max, (N, 1))
 
     # Normalize
-    array_ = (array_ - feat_min_tiled )/ (feat_max_tiled - feat_min_tiled)
+    diff = array_ - feat_min_tiled
+    rng = feat_max_tiled - feat_min_tiled
+    rng[rng==0] = 1
+    array_ = diff/rng
 
     # Convert back to the original data type
     if data_type != np.float:

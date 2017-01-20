@@ -63,7 +63,7 @@ CBR_Reuse(CB_ret)
 error_reuse, prct_error = CBR_Revise(CB_ret)
 
 # Stage 4 - Retain
-retained = CBR_Retain(CB_ret, std_thresh=10000)
+retained = CBR_Retain(CB_ret, std_thresh=0.015)
 
 # Print some statistics
 print "New case label - ", new_case_demo_y

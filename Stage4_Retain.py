@@ -13,13 +13,13 @@ def contains_point(array, point):
     return l.all()
 
 
-def CBR_Retain(ret_CB, strategy="Regular", std_thresh=10000):
+def CBR_Retain(ret_CB, strategy="Regular", std_thresh=0.1):
     # Function retains new case or discards it based on the strategy:
     # strategy="Always" - always retains new cases
     # strategy="Never" - Never retains new cases
     # strategy="Regular" - keeps new cases base on if it is treated as exceptional or non-redundant
     #
-    # Exceptional case has standard deviation of labels above the std_thresh
+    # Exceptional case has standard deviation of retrieved labels > std_thresh * mean_value
     #
     # Redundant cases are included within the multidimensional ellipse, bounded by points of retrieved cases
     # in the feature space
@@ -39,9 +39,10 @@ def CBR_Retain(ret_CB, strategy="Regular", std_thresh=10000):
 
         # Check if exceptional
         stddev = np.std(ret_CB.ret_labels)
+        ret_mean = np.average(ret_CB.ret_labels)
         # print("S4_Retain\tstdDev = ", stddev)
 
-        if stddev > std_thresh:
+        if stddev > std_thresh * ret_mean:
             # print "Exceptional"
             ret_CB.add_new_case()
             return True
