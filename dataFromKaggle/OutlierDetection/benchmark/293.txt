@@ -1,0 +1,328 @@
+=== Run information ===
+
+Scheme:       weka.classifiers.functions.SMOreg -C 1.0 -N 0 -I "weka.classifiers.functions.supportVector.RegSMOImproved -T 0.001 -V -P 1.0E-12 -L 0.001 -W 1" -K "weka.classifiers.functions.supportVector.PolyKernel -E 1.0 -C 250007"
+Relation:     train79Filter-weka.filters.unsupervised.attribute.RemoveUseless-M99.0-weka.filters.unsupervised.attribute.NominalToBinary-Rfirst-last-weka.filters.unsupervised.attribute.Normalize-S1.0-T0.0
+Instances:    1186
+Attributes:   294
+              [list of attributes omitted]
+Test mode:    split 66.0% train, remainder test
+
+=== Classifier model (full training set) ===
+
+SMOreg
+
+weights (not support vectors):
+ +       0.0367 * (normalized) MSZoning=RL
+ -       0.0146 * (normalized) MSZoning=RM
+ -       0.015  * (normalized) MSZoning=FV
+ -       0.0313 * (normalized) MSZoning=C (all)
+ +       0.0242 * (normalized) MSZoning=RH
+ +       0.0076 * (normalized) Street=Grvl
+ -       0.003  * (normalized) Alley=NA
+ +       0.0076 * (normalized) Alley=Grvl
+ -       0.0046 * (normalized) Alley=Pave
+ -       0.0002 * (normalized) LotShape=Reg
+ +       0.0108 * (normalized) LotShape=IR1
+ +       0.0423 * (normalized) LotShape=IR2
+ -       0.0529 * (normalized) LotShape=IR3
+ +       0.0096 * (normalized) LandContour=Lvl
+ +       0.0192 * (normalized) LandContour=Bnk
+ -       0.0034 * (normalized) LandContour=HLS
+ -       0.0254 * (normalized) LandContour=Low
+ -       0.1655 * (normalized) Utilities=NoSeWa
+ +       0.0052 * (normalized) LotConfig=Inside
+ -       0.0367 * (normalized) LotConfig=FR2
+ +       0.0036 * (normalized) LotConfig=Corner
+ +       0.0066 * (normalized) LotConfig=CulDSac
+ +       0.0214 * (normalized) LotConfig=FR3
+ +       0.0455 * (normalized) LandSlope=Gtl
+ +       0.0396 * (normalized) LandSlope=Mod
+ -       0.0851 * (normalized) LandSlope=Sev
+ -       0.0289 * (normalized) Neighborhood=CollgCr
+ +       0.0503 * (normalized) Neighborhood=Veenker
+ +       0.1004 * (normalized) Neighborhood=Crawfor
+ +       0.0332 * (normalized) Neighborhood=NoRidge
+ -       0.0244 * (normalized) Neighborhood=Mitchel
+ -       0.0267 * (normalized) Neighborhood=NWAmes
+ -       0.0145 * (normalized) Neighborhood=OldTown
+ +       0.0289 * (normalized) Neighborhood=BrkSide
+ -       0.0209 * (normalized) Neighborhood=Sawyer
+ -       0.0338 * (normalized) Neighborhood=NAmes
+ -       0.0313 * (normalized) Neighborhood=SawyerW
+ +       0.0191 * (normalized) Neighborhood=IDOTRR
+ -       0.0766 * (normalized) Neighborhood=MeadowV
+ -       0.0336 * (normalized) Neighborhood=Timber
+ +       0.0743 * (normalized) Neighborhood=Somerst
+ -       0.0549 * (normalized) Neighborhood=Gilbert
+ +       0.0491 * (normalized) Neighborhood=NridgHt
+ +       0.0082 * (normalized) Neighborhood=ClearCr
+ -       0.0669 * (normalized) Neighborhood=Edwards
+ +       0.0048 * (normalized) Neighborhood=NPkVill
+ +       0.1217 * (normalized) Neighborhood=StoneBr
+ +       0      * (normalized) Neighborhood=Blmngtn
+ -       0.0407 * (normalized) Neighborhood=BrDale
+ -       0.037  * (normalized) Neighborhood=SWISU
+ +       0      * (normalized) Neighborhood=Blueste
+ +       0.0331 * (normalized) Condition1=Norm
+ +       0.0017 * (normalized) Condition1=Feedr
+ +       0.0569 * (normalized) Condition1=PosN
+ -       0.0273 * (normalized) Condition1=Artery
+ -       0.0761 * (normalized) Condition1=RRAe
+ -       0.0318 * (normalized) Condition1=RRNn
+ +       0.0134 * (normalized) Condition1=RRAn
+ +       0.0301 * (normalized) Condition1=PosA
+ +       0      * (normalized) Condition1=RRNe
+ +       0.2495 * (normalized) Condition2=Norm
+ +       0.1367 * (normalized) Condition2=Artery
+ +       0.2031 * (normalized) Condition2=Feedr
+ -       1      * (normalized) Condition2=PosN
+ +       0.3126 * (normalized) Condition2=RRNn
+ +       0.0641 * (normalized) Condition2=RRAn
+ +       0.034  * (normalized) Condition2=RRAe
+ +       0.0418 * (normalized) BldgType=1Fam
+ +       0.0246 * (normalized) BldgType=2fmCon
+ -       0.0193 * (normalized) BldgType=Duplex
+ -       0.0119 * (normalized) BldgType=TwnhsE
+ -       0.0352 * (normalized) BldgType=Twnhs
+ +       0.0134 * (normalized) HouseStyle=2Story
+ +       0.0144 * (normalized) HouseStyle=1Story
+ +       0.0117 * (normalized) HouseStyle=1.5Fin
+ +       0.0356 * (normalized) HouseStyle=1.5Unf
+ +       0.0148 * (normalized) HouseStyle=SFoyer
+ +       0.0188 * (normalized) HouseStyle=SLvl
+ -       0.0153 * (normalized) HouseStyle=2.5Unf
+ -       0.0934 * (normalized) HouseStyle=2.5Fin
+ -       0.0501 * (normalized) RoofStyle=Gable
+ -       0.0515 * (normalized) RoofStyle=Hip
+ +       0      * (normalized) RoofStyle=Gambrel
+ -       0.0604 * (normalized) RoofStyle=Mansard
+ +       0.128  * (normalized) RoofStyle=Flat
+ +       0.034  * (normalized) RoofStyle=Shed
+ +       0.0958 * (normalized) RoofMatl=CompShg
+ +       0.1798 * (normalized) RoofMatl=Metal
+ +       0.0876 * (normalized) RoofMatl=WdShake
+ +       0.4462 * (normalized) RoofMatl=Membran
+ -       0.073  * (normalized) RoofMatl=Tar&Grv
+ +       0.1977 * (normalized) RoofMatl=WdShngl
+ +       0.0659 * (normalized) RoofMatl=Roll
+ -       1      * (normalized) RoofMatl=ClyTile
+ -       0.0625 * (normalized) Exterior1st=VinylSd
+ +       0.0158 * (normalized) Exterior1st=MetalSd
+ -       0.0093 * (normalized) Exterior1st=Wd Sdng
+ -       0.0199 * (normalized) Exterior1st=HdBoard
+ +       0.0863 * (normalized) Exterior1st=BrkFace
+ +       0.0223 * (normalized) Exterior1st=CemntBd
+ -       0.0206 * (normalized) Exterior1st=Plywood
+ -       0.0043 * (normalized) Exterior1st=Stucco
+ -       0.0018 * (normalized) Exterior1st=AsbShng
+ -       0.0198 * (normalized) Exterior1st=WdShing
+ -       0.02   * (normalized) Exterior1st=AsphShn
+ +       0.0691 * (normalized) Exterior1st=Stone
+ -       0.0355 * (normalized) Exterior1st=CBlock
+ +       0.0825 * (normalized) Exterior2nd=VinylSd
+ -       0.0089 * (normalized) Exterior2nd=MetalSd
+ +       0.0076 * (normalized) Exterior2nd=Wd Shng
+ +       0.0133 * (normalized) Exterior2nd=HdBoard
+ +       0.0029 * (normalized) Exterior2nd=Plywood
+ +       0.0123 * (normalized) Exterior2nd=Wd Sdng
+ -       0.0096 * (normalized) Exterior2nd=CmentBd
+ -       0.0227 * (normalized) Exterior2nd=BrkFace
+ +       0.0553 * (normalized) Exterior2nd=Stucco
+ -       0.0294 * (normalized) Exterior2nd=AsbShng
+ +       0.0048 * (normalized) Exterior2nd=Brk Cmn
+ -       0.0019 * (normalized) Exterior2nd=ImStucc
+ +       0.0047 * (normalized) Exterior2nd=AsphShn
+ -       0.0754 * (normalized) Exterior2nd=Stone
+ -       0.0355 * (normalized) Exterior2nd=CBlock
+ +       0.0043 * (normalized) MasVnrType=BrkFace
+ -       0.0062 * (normalized) MasVnrType=None
+ +       0.0297 * (normalized) MasVnrType=Stone
+ -       0.0477 * (normalized) MasVnrType=BrkCmn
+ +       0.0199 * (normalized) MasVnrType=NA
+ +       0.0182 * (normalized) ExterQual=Gd
+ +       0.0035 * (normalized) ExterQual=TA
+ +       0.0313 * (normalized) ExterQual=Fa
+ -       0.0531 * (normalized) ExterQual=Ex
+ -       0.0047 * (normalized) ExterCond=TA
+ -       0.0187 * (normalized) ExterCond=Gd
+ +       0.0234 * (normalized) ExterCond=Fa
+ +       0      * (normalized) ExterCond=Ex
+ +       0.0431 * (normalized) Foundation=PConc
+ +       0.0329 * (normalized) Foundation=CBlock
+ +       0.0346 * (normalized) Foundation=BrkTil
+ -       0.1883 * (normalized) Foundation=Wood
+ +       0.0404 * (normalized) Foundation=Slab
+ +       0.0372 * (normalized) Foundation=Stone
+ -       0.0114 * (normalized) BsmtQual=Gd
+ -       0.017  * (normalized) BsmtQual=TA
+ +       0.0177 * (normalized) BsmtQual=NA
+ -       0.0056 * (normalized) BsmtQual=Ex
+ +       0.0164 * (normalized) BsmtQual=Fa
+ +       0.0045 * (normalized) BsmtCond=TA
+ +       0.0003 * (normalized) BsmtCond=Gd
+ +       0.0177 * (normalized) BsmtCond=NA
+ -       0.0225 * (normalized) BsmtCond=Fa
+ +       0.0145 * (normalized) BsmtExposure=No
+ +       0.0215 * (normalized) BsmtExposure=Gd
+ +       0.0322 * (normalized) BsmtExposure=Mn
+ +       0.0103 * (normalized) BsmtExposure=Av
+ -       0.0785 * (normalized) BsmtExposure=NA
+ +       0.022  * (normalized) BsmtFinType1=GLQ
+ +       0.0008 * (normalized) BsmtFinType1=ALQ
+ -       0.0102 * (normalized) BsmtFinType1=Unf
+ -       0.0062 * (normalized) BsmtFinType1=Rec
+ +       0.0015 * (normalized) BsmtFinType1=BLQ
+ +       0.0177 * (normalized) BsmtFinType1=NA
+ -       0.0256 * (normalized) BsmtFinType1=LwQ
+ -       0.0093 * (normalized) BsmtFinType2=Unf
+ -       0.0133 * (normalized) BsmtFinType2=BLQ
+ +       0.0177 * (normalized) BsmtFinType2=NA
+ +       0.0158 * (normalized) BsmtFinType2=ALQ
+ -       0.0228 * (normalized) BsmtFinType2=Rec
+ -       0.0112 * (normalized) BsmtFinType2=LwQ
+ +       0.0231 * (normalized) BsmtFinType2=GLQ
+ +       0.0202 * (normalized) Heating=GasA
+ -       0.0059 * (normalized) Heating=GasW
+ +       0.0199 * (normalized) Heating=Wall
+ +       0.0253 * (normalized) Heating=Grav
+ -       0.0595 * (normalized) Heating=OthW
+ -       0.0031 * (normalized) HeatingQC=Ex
+ -       0.0082 * (normalized) HeatingQC=Gd
+ -       0.0103 * (normalized) HeatingQC=TA
+ +       0.0372 * (normalized) HeatingQC=Fa
+ -       0.0157 * (normalized) HeatingQC=Po
+ -       0.0199 * (normalized) CentralAir=N
+ -       0.019  * (normalized) Electrical=SBrkr
+ -       0.0287 * (normalized) Electrical=FuseF
+ -       0.0173 * (normalized) Electrical=FuseA
+ +       0.0488 * (normalized) Electrical=FuseP
+ +       0.0161 * (normalized) Electrical=NA
+ -       0.0222 * (normalized) KitchenQual=Gd
+ -       0.0227 * (normalized) KitchenQual=TA
+ -       0.0199 * (normalized) KitchenQual=Fa
+ +       0.0649 * (normalized) KitchenQual=Ex
+ +       0.1304 * (normalized) Functional=Typ
+ +       0.1024 * (normalized) Functional=Min1
+ -       0.062  * (normalized) Functional=Maj1
+ +       0.0845 * (normalized) Functional=Min2
+ -       0.0094 * (normalized) Functional=Mod
+ +       0.0138 * (normalized) Functional=Maj2
+ -       0.2597 * (normalized) Functional=Sev
+ -       0.0036 * (normalized) FireplaceQu=NA
+ +       0.0131 * (normalized) FireplaceQu=TA
+ +       0.0056 * (normalized) FireplaceQu=Gd
+ -       0.0127 * (normalized) FireplaceQu=Fa
+ -       0.0262 * (normalized) FireplaceQu=Ex
+ +       0.0237 * (normalized) FireplaceQu=Po
+ +       0.0159 * (normalized) GarageType=Attchd
+ +       0.0211 * (normalized) GarageType=Detchd
+ +       0.0127 * (normalized) GarageType=CarPort
+ +       0.0173 * (normalized) GarageType=NA
+ +       0.0245 * (normalized) GarageType=BuiltIn
+ +       0.0265 * (normalized) GarageType=Basment
+ -       0.1179 * (normalized) GarageType=2Types
+ -       0.0039 * (normalized) GarageFinish=RFn
+ -       0.0115 * (normalized) GarageFinish=Unf
+ -       0.002  * (normalized) GarageFinish=Fin
+ +       0.0173 * (normalized) GarageFinish=NA
+ +       0.0253 * (normalized) GarageQual=TA
+ -       0.0104 * (normalized) GarageQual=Fa
+ +       0.0955 * (normalized) GarageQual=Gd
+ +       0.0173 * (normalized) GarageQual=NA
+ -       0.1504 * (normalized) GarageQual=Po
+ +       0.0227 * (normalized) GarageQual=Ex
+ -       0.0206 * (normalized) GarageCond=TA
+ -       0.023  * (normalized) GarageCond=Gd
+ +       0.0173 * (normalized) GarageCond=NA
+ -       0.0088 * (normalized) GarageCond=Fa
+ +       0.0124 * (normalized) GarageCond=Po
+ +       0.0227 * (normalized) GarageCond=Ex
+ +       0.0064 * (normalized) PavedDrive=Y
+ +       0.0106 * (normalized) PavedDrive=N
+ -       0.017  * (normalized) PavedDrive=P
+ +       0.0561 * (normalized) PoolQC=NA
+ -       0.0538 * (normalized) PoolQC=Ex
+ -       0.0023 * (normalized) PoolQC=Fa
+ +       0      * (normalized) PoolQC=Gd
+ +       0.0092 * (normalized) Fence=NA
+ +       0.0021 * (normalized) Fence=MnPrv
+ +       0.0073 * (normalized) Fence=GdWo
+ -       0.0104 * (normalized) Fence=GdPrv
+ -       0.0083 * (normalized) Fence=MnWw
+ +       0.0404 * (normalized) MiscFeature=NA
+ +       0.0303 * (normalized) MiscFeature=Shed
+ -       0.0505 * (normalized) MiscFeature=Gar2
+ +       0.0512 * (normalized) MiscFeature=Othr
+ -       0.0713 * (normalized) MiscFeature=TenC
+ -       0.0272 * (normalized) SaleType=WD
+ -       0.0436 * (normalized) SaleType=COD
+ -       0.0046 * (normalized) SaleType=New
+ +       0.0582 * (normalized) SaleType=ConLD
+ -       0.0624 * (normalized) SaleType=ConLI
+ -       0.0436 * (normalized) SaleType=CWD
+ -       0.0096 * (normalized) SaleType=ConLw
+ +       0.0572 * (normalized) SaleType=Con
+ +       0.0757 * (normalized) SaleType=Oth
+ +       0.0069 * (normalized) SaleCondition=Normal
+ -       0.0166 * (normalized) SaleCondition=Abnorml
+ +       0.0127 * (normalized) SaleCondition=Partial
+ -       0.0168 * (normalized) SaleCondition=Alloca
+ -       0.0029 * (normalized) SaleCondition=Family
+ +       0.0167 * (normalized) SaleCondition=AdjLand
+ -       0.0056 * (normalized) LotFrontage
+ +       0.6551 * (normalized) LotArea
+ +       0.0614 * (normalized) MasVnrArea
+ +       0.3634 * (normalized) BsmtFinSF1
+ +       0.062  * (normalized) BsmtFinSF2
+ +       0.047  * (normalized) BsmtUnfSF
+ +       0.3618 * (normalized) TotalBsmtSF
+ +       0.5611 * (normalized) 1stFlrSF
+ +       0.2275 * (normalized) 2ndFlrSF
+ +       0.546  * (normalized) GrLivArea
+ +       0.0894 * (normalized) GarageArea
+ +       0.0546 * (normalized) WoodDeckSF
+ +       0.0569 * (normalized) OpenPorchSF
+ +       0.0752 * (normalized) EnclosedPorch
+ +       0.2933 * (normalized) YearBuilt
+ +       0.0372 * (normalized) YearRemodAdd
+ +       0.0407 * (normalized) GarageYrBlt
+ -       0.0058 * (normalized) MoSold
+ +       0.0967 * (normalized) GarageCars
+ +       0.0201 * (normalized) Fireplaces
+ +       0.041  * (normalized) TotRmsAbvGrd
+ +       0.0461 * (normalized) BsmtFullBath
+ +       0.0194 * (normalized) BsmtHalfBath
+ +       0.0569 * (normalized) FullBath
+ +       0.0208 * (normalized) HalfBath
+ -       0.0544 * (normalized) BedroomAbvGr
+ -       0.0883 * (normalized) KitchenAbvGr
+ +       0.1827 * (normalized) OverallQual
+ +       0.2027 * (normalized) OverallCond
+ +       0.0004 * (normalized) YrSold
+ -       0.0129 * (normalized) MSSubClass
+ +       0.0419 * (normalized) LowQualFinSF
+ +       0.0889 * (normalized) 3SsnPorch
+ +       0.0816 * (normalized) ScreenPorch
+ +       0.1175 * (normalized) PoolArea
+ +       0.1356 * (normalized) MiscVal
+ -       1.1124
+
+
+
+Number of kernel evaluations: 703891 (99.883% cached)
+
+Time taken to build model: 36.56 seconds
+
+=== Evaluation on test split ===
+
+Time taken to test model on training split: 0.05 seconds
+
+=== Summary ===
+
+Correlation coefficient                  0.8346
+Mean absolute error                  13923.5672
+Root mean squared error              23388.476 
+Relative absolute error                 42.1024 %
+Root relative squared error             58.9924 %
+Total Number of Instances              403     
+

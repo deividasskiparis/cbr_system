@@ -1,0 +1,185 @@
+=== Run information ===
+
+Evaluator:    weka.attributeSelection.ReliefFAttributeEval -M -1 -D 1 -K 10
+Search:       weka.attributeSelection.Ranker -T -1.7976931348623157E308 -N -1
+Relation:     train79Filter-weka.filters.unsupervised.attribute.Normalize-S1.0-T0.0
+Instances:    1186
+Attributes:   80
+              MSZoning
+              Street
+              Alley
+              LotShape
+              LandContour
+              Utilities
+              LotConfig
+              LandSlope
+              Neighborhood
+              Condition1
+              Condition2
+              BldgType
+              HouseStyle
+              RoofStyle
+              RoofMatl
+              Exterior1st
+              Exterior2nd
+              MasVnrType
+              ExterQual
+              ExterCond
+              Foundation
+              BsmtQual
+              BsmtCond
+              BsmtExposure
+              BsmtFinType1
+              BsmtFinType2
+              Heating
+              HeatingQC
+              CentralAir
+              Electrical
+              KitchenQual
+              Functional
+              FireplaceQu
+              GarageType
+              GarageFinish
+              GarageQual
+              GarageCond
+              PavedDrive
+              PoolQC
+              Fence
+              MiscFeature
+              SaleType
+              SaleCondition
+              LotFrontage
+              LotArea
+              MasVnrArea
+              BsmtFinSF1
+              BsmtFinSF2
+              BsmtUnfSF
+              TotalBsmtSF
+              1stFlrSF
+              2ndFlrSF
+              GrLivArea
+              GarageArea
+              WoodDeckSF
+              OpenPorchSF
+              EnclosedPorch
+              YearBuilt
+              YearRemodAdd
+              GarageYrBlt
+              MoSold
+              GarageCars
+              Fireplaces
+              TotRmsAbvGrd
+              BsmtFullBath
+              BsmtHalfBath
+              FullBath
+              HalfBath
+              BedroomAbvGr
+              KitchenAbvGr
+              OverallQual
+              OverallCond
+              YrSold
+              MSSubClass
+              LowQualFinSF
+              3SsnPorch
+              ScreenPorch
+              PoolArea
+              MiscVal
+              SalePrice
+Evaluation mode:    evaluate on all training data
+
+
+
+=== Attribute Selection on all input data ===
+
+Search Method:
+	Attribute ranking.
+
+Attribute Evaluator (supervised, Class (numeric): 80 SalePrice):
+	ReliefF Ranking Filter
+	Instances sampled: all
+	Number of nearest neighbours (k): 10
+	Equal influence nearest neighbours
+
+Ranked attributes:
+ 0.066074     9 Neighborhood
+ 0.036934    33 FireplaceQu
+ 0.034947    13 HouseStyle
+ 0.030641    31 KitchenQual
+ 0.029293    67 FullBath
+ 0.027304     5 LandContour
+ 0.025528    52 2ndFlrSF
+ 0.025334    22 BsmtQual
+ 0.023623    24 BsmtExposure
+ 0.022782    53 GrLivArea
+ 0.021365    63 Fireplaces
+ 0.01979     64 TotRmsAbvGrd
+ 0.019562    68 HalfBath
+ 0.01716     19 ExterQual
+ 0.016802    51 1stFlrSF
+ 0.01614     71 OverallQual
+ 0.015338     1 MSZoning
+ 0.015289    74 MSSubClass
+ 0.014283     8 LandSlope
+ 0.014221    17 Exterior2nd
+ 0.013701    18 MasVnrType
+ 0.013631    59 YearRemodAdd
+ 0.012704    16 Exterior1st
+ 0.011654    43 SaleCondition
+ 0.011399    54 GarageArea
+ 0.011302    23 BsmtCond
+ 0.011277    12 BldgType
+ 0.011099    69 BedroomAbvGr
+ 0.010996    62 GarageCars
+ 0.009736    38 PavedDrive
+ 0.009332    49 BsmtUnfSF
+ 0.009286    10 Condition1
+ 0.009282    15 RoofMatl
+ 0.009249    50 TotalBsmtSF
+ 0.008779    26 BsmtFinType2
+ 0.008715    44 LotFrontage
+ 0.00841     56 OpenPorchSF
+ 0.008365    65 BsmtFullBath
+ 0.008283    77 ScreenPorch
+ 0.007238    48 BsmtFinSF2
+ 0.006979    72 OverallCond
+ 0.006885    57 EnclosedPorch
+ 0.00686     32 Functional
+ 0.00643     45 LotArea
+ 0.006238    21 Foundation
+ 0.006174    36 GarageQual
+ 0.006116    35 GarageFinish
+ 0.005834    55 WoodDeckSF
+ 0.005614    58 YearBuilt
+ 0.005605    20 ExterCond
+ 0.005591    14 RoofStyle
+ 0.00493     39 PoolQC
+ 0.004787    47 BsmtFinSF1
+ 0.004733    46 MasVnrArea
+ 0.004226    27 Heating
+ 0.003992    78 PoolArea
+ 0.003381    75 LowQualFinSF
+ 0.003378    29 CentralAir
+ 0.0032       7 LotConfig
+ 0.002938    61 MoSold
+ 0.002882    34 GarageType
+ 0.00278      4 LotShape
+ 0.002537     3 Alley
+ 0.002537    66 BsmtHalfBath
+ 0.002179    70 KitchenAbvGr
+ 0.002142     2 Street
+ 0.001801    76 3SsnPorch
+ 0.00163     42 SaleType
+ 0.001274    11 Condition2
+ 0.000659    25 BsmtFinType1
+ 0.000557     6 Utilities
+ 0.00025     60 GarageYrBlt
+-0.000128    79 MiscVal
+-0.000196    37 GarageCond
+-0.000908    73 YrSold
+-0.004142    28 HeatingQC
+-0.005151    30 Electrical
+-0.007304    41 MiscFeature
+-0.020194    40 Fence
+
+Selected attributes: 9,33,13,31,67,5,52,22,24,53,63,64,68,19,51,71,1,74,8,17,18,59,16,43,54,23,12,69,62,38,49,10,15,50,26,44,56,65,77,48,72,57,32,45,21,36,35,55,58,20,14,39,47,46,27,78,75,29,7,61,34,4,3,66,70,2,76,42,11,25,6,60,79,37,73,28,30,41,40 : 79
+

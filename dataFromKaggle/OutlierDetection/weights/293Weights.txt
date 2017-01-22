@@ -1,0 +1,320 @@
+=== Run information ===
+
+Evaluator:    weka.attributeSelection.ReliefFAttributeEval -M -1 -D 1 -K 10
+Search:       weka.attributeSelection.Ranker -T -1.7976931348623157E308 -N -1
+Relation:     train79Filter-weka.filters.unsupervised.attribute.RemoveUseless-M99.0-weka.filters.unsupervised.attribute.NominalToBinary-Rfirst-last-weka.filters.unsupervised.attribute.Normalize-S1.0-T0.0
+Instances:    1186
+Attributes:   294
+              [list of attributes omitted]
+Evaluation mode:    evaluate on all training data
+
+
+
+=== Attribute Selection on all input data ===
+
+Search Method:
+	Attribute ranking.
+
+Attribute Evaluator (supervised, Class (numeric): 294 SalePrice):
+	ReliefF Ranking Filter
+	Instances sampled: all
+	Number of nearest neighbours (k): 10
+	Equal influence nearest neighbours
+
+Ranked attributes:
+ 0.03880635     73 HouseStyle=2Story
+ 0.03697977    199 FireplaceQu=Gd
+ 0.03350432    281 FullBath
+ 0.0313143      29 Neighborhood=Crawfor
+ 0.03106642    266 2ndFlrSF
+ 0.02774049     14 LandContour=Lvl
+ 0.02596008    142 BsmtQual=Gd
+ 0.02553154    187 KitchenQual=TA
+ 0.02531777     74 HouseStyle=1Story
+ 0.02475891    267 GrLivArea
+ 0.02349628    277 Fireplaces
+ 0.02343123    282 HalfBath
+ 0.02257692    186 KitchenQual=Gd
+ 0.0220736     278 TotRmsAbvGrd
+ 0.02095694    151 BsmtExposure=No
+ 0.02003802    197 FireplaceQu=NA
+ 0.02000702     68 BldgType=1Fam
+ 0.01995903    143 BsmtQual=TA
+ 0.01993267    288 MSSubClass
+ 0.01854177    198 FireplaceQu=TA
+ 0.01833529     44 Neighborhood=ClearCr
+ 0.01805192     32 Neighborhood=NWAmes
+ 0.01791842    189 KitchenQual=Ex
+ 0.01734236     75 HouseStyle=1.5Fin
+ 0.0170807     285 OverallQual
+ 0.01685006    265 1stFlrSF
+ 0.01523906    273 YearRemodAdd
+ 0.01521407     15 LandContour=Bnk
+ 0.01487523     24 LandSlope=Gtl
+ 0.01458541    129 ExterQual=TA
+ 0.01355247    125 MasVnrType=Stone
+ 0.01347126    128 ExterQual=Gd
+ 0.01314377    152 BsmtExposure=Gd
+ 0.01301816      1 MSZoning=RL
+ 0.01295172    276 GarageCars
+ 0.01285258    283 BedroomAbvGr
+ 0.01256158    136 Foundation=PConc
+ 0.01251199    268 GarageArea
+ 0.01241145    101 Exterior1st=Plywood
+ 0.01218605    112 Exterior2nd=Plywood
+ 0.01058623     16 LandContour=HLS
+ 0.01057167     25 LandSlope=Mod
+ 0.01033349    226 PavedDrive=Y
+ 0.01029128    153 BsmtExposure=Mn
+ 0.01002803     50 Neighborhood=SWISU
+ 0.0095939      99 Exterior1st=BrkFace
+ 0.00945575    263 BsmtUnfSF
+ 0.00931893    116 Exterior2nd=Stucco
+ 0.00924917    147 BsmtCond=TA
+ 0.00922734    291 ScreenPorch
+ 0.00922038    264 TotalBsmtSF
+ 0.0091521       2 MSZoning=RM
+ 0.00909898    258 LotFrontage
+ 0.00896295    271 EnclosedPorch
+ 0.00866006    270 OpenPorchSF
+ 0.00858737    214 GarageQual=TA
+ 0.00830586     41 Neighborhood=Somerst
+ 0.00822912    286 OverallCond
+ 0.00819101      9 Alley=Pave
+ 0.00811263     52 Condition1=Norm
+ 0.00785689    279 BsmtFullBath
+ 0.0076399      71 BldgType=TwnhsE
+ 0.00759756    132 ExterCond=TA
+ 0.00750289     12 LotShape=IR2
+ 0.00745864    215 GarageQual=Fa
+ 0.00735023     40 Neighborhood=Timber
+ 0.00715684    272 YearBuilt
+ 0.00703686     85 RoofStyle=Flat
+ 0.00697495    133 ExterCond=Gd
+ 0.00690075     87 RoofMatl=CompShg
+ 0.00679533     27 Neighborhood=CollgCr
+ 0.00679152    148 BsmtCond=Gd
+ 0.0067546      59 Condition1=PosA
+ 0.00656739    259 LotArea
+ 0.00656713     42 Neighborhood=Gilbert
+ 0.00648221    100 Exterior1st=CemntBd
+ 0.00647113    163 BsmtFinType2=Unf
+ 0.0064561     262 BsmtFinSF2
+ 0.00643836    211 GarageFinish=Unf
+ 0.0062391     192 Functional=Maj1
+ 0.00614299    252 SaleCondition=Normal
+ 0.00606511    180 CentralAir=N
+ 0.00603615    114 Exterior2nd=CmentBd
+ 0.00583011    255 SaleCondition=Alloca
+ 0.00573201    227 PavedDrive=N
+ 0.00567814     36 Neighborhood=NAmes
+ 0.00561275    102 Exterior1st=Stucco
+ 0.00554579    110 Exterior2nd=Wd Shng
+ 0.00548042     26 LandSlope=Sev
+ 0.00534685    269 WoodDeckSF
+ 0.00529747    145 BsmtQual=Ex
+ 0.00528494     81 RoofStyle=Gable
+ 0.00526391     45 Neighborhood=Edwards
+ 0.00518956    228 PavedDrive=P
+ 0.00500888     55 Condition1=Artery
+ 0.00499042    212 GarageFinish=Fin
+ 0.00498524     17 LandContour=Low
+ 0.00497659    229 PoolQC=NA
+ 0.004836      158 BsmtFinType1=Unf
+ 0.00480325    261 BsmtFinSF1
+ 0.00478091    169 BsmtFinType2=GLQ
+ 0.00470424    162 BsmtFinType1=LwQ
+ 0.00462791    260 MasVnrArea
+ 0.00438551    275 MoSold
+ 0.00429821     37 Neighborhood=SawyerW
+ 0.00425604     46 Neighborhood=NPkVill
+ 0.00418997     69 BldgType=2fmCon
+ 0.00417735    138 Foundation=BrkTil
+ 0.00415829      3 MSZoning=FV
+ 0.00414276    256 SaleCondition=Family
+ 0.00412493     83 RoofStyle=Gambrel
+ 0.00407574    171 Heating=GasW
+ 0.00400478    223 GarageCond=Fa
+ 0.00398631     22 LotConfig=CulDSac
+ 0.00398289    292 PoolArea
+ 0.00397864     70 BldgType=Duplex
+ 0.00396479    167 BsmtFinType2=Rec
+ 0.0037688       5 MSZoning=RH
+ 0.00376518    188 KitchenQual=Fa
+ 0.00374486    289 LowQualFinSF
+ 0.00365787    210 GarageFinish=RFn
+ 0.00359667     54 Condition1=PosN
+ 0.0035838     190 Functional=Typ
+ 0.00349864    170 Heating=GasA
+ 0.00345309     28 Neighborhood=Veenker
+ 0.00340118    203 GarageType=Attchd
+ 0.00338791    194 Functional=Mod
+ 0.00338629    236 Fence=GdPrv
+ 0.00324138    216 GarageQual=Gd
+ 0.00313676     91 RoofMatl=Tar&Grv
+ 0.00312573     34 Neighborhood=BrkSide
+ 0.00309655     79 HouseStyle=2.5Unf
+ 0.00302998      7 Alley=NA
+ 0.00298569     43 Neighborhood=NridgHt
+ 0.00298526     48 Neighborhood=Blmngtn
+ 0.00294901    159 BsmtFinType1=Rec
+ 0.00294274     80 HouseStyle=2.5Fin
+ 0.00293665    146 BsmtQual=Fa
+ 0.00284533    139 Foundation=Wood
+ 0.00275423    208 GarageType=Basment
+ 0.00273629    207 GarageType=BuiltIn
+ 0.00271362    284 KitchenAbvGr
+ 0.00270553    113 Exterior2nd=Wd Sdng
+ 0.00270395     90 RoofMatl=Membran
+ 0.00264871     39 Neighborhood=MeadowV
+ 0.00259844    248 SaleType=CWD
+ 0.00258518    137 Foundation=CBlock
+ 0.00242448    280 BsmtHalfBath
+ 0.00238817    200 FireplaceQu=Fa
+ 0.0023797     115 Exterior2nd=BrkFace
+ 0.00235113     97 Exterior1st=Wd Sdng
+ 0.00227077     77 HouseStyle=SFoyer
+ 0.00225563     89 RoofMatl=WdShake
+ 0.00225489    177 HeatingQC=TA
+ 0.00223539    121 Exterior2nd=Stone
+ 0.00219608    201 FireplaceQu=Ex
+ 0.0021908     164 BsmtFinType2=BLQ
+ 0.00215022     62 Condition2=Artery
+ 0.00209608    150 BsmtCond=Fa
+ 0.00209161    130 ExterQual=Fa
+ 0.00208039    118 Exterior2nd=Brk Cmn
+ 0.00206623     30 Neighborhood=NoRidge
+ 0.00199731    205 GarageType=CarPort
+ 0.00199667    230 PoolQC=Ex
+ 0.00198617    131 ExterQual=Ex
+ 0.00196663     61 Condition2=Norm
+ 0.00196245    123 MasVnrType=BrkFace
+ 0.00193825    106 Exterior1st=Stone
+ 0.00190787      6 Street=Grvl
+ 0.0017914     178 HeatingQC=Fa
+ 0.00173167    242 MiscFeature=TenC
+ 0.00169685    231 PoolQC=Fa
+ 0.00167359     56 Condition1=RRAe
+ 0.00161155    124 MasVnrType=None
+ 0.00159463    220 GarageCond=TA
+ 0.00149548    209 GarageType=2Types
+ 0.00133821    204 GarageType=Detchd
+ 0.00133579    134 ExterCond=Fa
+ 0.00128308    232 PoolQC=Gd
+ 0.00109102    290 3SsnPorch
+ 0.0010737     195 Functional=Maj2
+ 0.00106347    287 YrSold
+ 0.00095185    126 MasVnrType=BrkCmn
+ 0.0009395      47 Neighborhood=StoneBr
+ 0.0008764      88 RoofMatl=Metal
+ 0.00084462    253 SaleCondition=Abnorml
+ 0.0008202     127 MasVnrType=NA
+ 0.00079772    218 GarageQual=Po
+ 0.00079614     18 Utilities=NoSeWa
+ 0.00075986    196 Functional=Sev
+ 0.00074033    141 Foundation=Stone
+ 0.00067377    244 SaleType=COD
+ 0.00061617     53 Condition1=Feedr
+ 0.00060345     21 LotConfig=Corner
+ 0.00058966     94 RoofMatl=ClyTile
+ 0.00058886    108 Exterior2nd=VinylSd
+ 0.00058632    174 Heating=OthW
+ 0.00056742    173 Heating=Grav
+ 0.00055348     49 Neighborhood=BrDale
+ 0.00049105    179 HeatingQC=Po
+ 0.00041817     51 Neighborhood=Blueste
+ 0.00035427     64 Condition2=PosN
+ 0.00028685    155 BsmtExposure=NA
+ 0.00024578     63 Condition2=Feedr
+ 0.00023123     86 RoofStyle=Shed
+ 0.00023123     67 Condition2=RRAe
+ 0.00021819    149 BsmtCond=NA
+ 0.00021819    161 BsmtFinType1=NA
+ 0.00021819    144 BsmtQual=NA
+ 0.00021819    165 BsmtFinType2=NA
+ 0.00012714    251 SaleType=Oth
+ 0.00012644    184 Electrical=FuseP
+ 0.00008111     23 LotConfig=FR3
+ 0.00005704    274 GarageYrBlt
+ 0.00005577    122 Exterior2nd=CBlock
+ 0.00005577    107 Exterior1st=CBlock
+ 0.00000987    166 BsmtFinType2=ALQ
+ 0.00000501     57 Condition1=RRNn
+-0.00005082     60 Condition1=RRNe
+-0.00005766    240 MiscFeature=Gar2
+-0.00008092    105 Exterior1st=AsphShn
+-0.00011209     31 Neighborhood=Mitchel
+-0.00011633     84 RoofStyle=Mansard
+-0.00012708     98 Exterior1st=HdBoard
+-0.00013538    156 BsmtFinType1=GLQ
+-0.00014762     92 RoofMatl=WdShngl
+-0.00021308    293 MiscVal
+-0.00022713     93 RoofMatl=Roll
+-0.00025283    185 Electrical=NA
+-0.00031209    250 SaleType=Con
+-0.00034656    247 SaleType=ConLI
+-0.00036156    224 GarageCond=Po
+-0.00037469    154 BsmtExposure=Av
+-0.00042014    135 ExterCond=Ex
+-0.00042766     65 Condition2=RRNn
+-0.00046431    257 SaleCondition=AdjLand
+-0.00052325    249 SaleType=ConLw
+-0.00052679      4 MSZoning=C (all)
+-0.00053969     13 LotShape=IR3
+-0.00055189     10 LotShape=Reg
+-0.00056839    206 GarageType=NA
+-0.00056839    222 GarageCond=NA
+-0.00056839    213 GarageFinish=NA
+-0.00056839    217 GarageQual=NA
+-0.00057085    117 Exterior2nd=AsbShng
+-0.00058721     66 Condition2=RRAn
+-0.00058957    104 Exterior1st=WdShing
+-0.00060867     58 Condition1=RRAn
+-0.00067352    243 SaleType=WD
+-0.0007071     241 MiscFeature=Othr
+-0.00073493    254 SaleCondition=Partial
+-0.00083288    246 SaleType=ConLD
+-0.00084129    120 Exterior2nd=AsphShn
+-0.00104109    168 BsmtFinType2=LwQ
+-0.00123259    225 GarageCond=Ex
+-0.00123259    219 GarageQual=Ex
+-0.00139526    172 Heating=Wall
+-0.00147062    221 GarageCond=Gd
+-0.00154601    191 Functional=Min1
+-0.00161521    202 FireplaceQu=Po
+-0.00165024     38 Neighborhood=IDOTRR
+-0.00169536    119 Exterior2nd=ImStucc
+-0.00173735     72 BldgType=Twnhs
+-0.00178417     33 Neighborhood=OldTown
+-0.00179255    182 Electrical=FuseF
+-0.00182479     20 LotConfig=FR2
+-0.00200357    103 Exterior1st=AsbShng
+-0.00206516    245 SaleType=New
+-0.00211421     78 HouseStyle=SLvl
+-0.00211912     76 HouseStyle=1.5Unf
+-0.0021521      19 LotConfig=Inside
+-0.00236158     95 Exterior1st=VinylSd
+-0.00251294    181 Electrical=SBrkr
+-0.00251459    193 Functional=Min2
+-0.00320001      8 Alley=Grvl
+-0.00337062    237 Fence=MnWw
+-0.00384446    140 Foundation=Slab
+-0.00392098    183 Electrical=FuseA
+-0.00504387    160 BsmtFinType1=BLQ
+-0.00513443     11 LotShape=IR1
+-0.00547299    176 HeatingQC=Gd
+-0.00581889     82 RoofStyle=Hip
+-0.00584647     35 Neighborhood=Sawyer
+-0.00610589    175 HeatingQC=Ex
+-0.00616623    111 Exterior2nd=HdBoard
+-0.00637428    109 Exterior2nd=MetalSd
+-0.00707004     96 Exterior1st=MetalSd
+-0.00709338    238 MiscFeature=NA
+-0.00755091    235 Fence=GdWo
+-0.0080603     239 MiscFeature=Shed
+-0.00932124    234 Fence=MnPrv
+-0.00934548    157 BsmtFinType1=ALQ
+-0.01325762    233 Fence=NA
+
+Selected attributes: 73,199,281,29,266,14,142,187,74,267,277,282,186,278,151,197,68,143,288,198,44,32,189,75,285,265,273,15,24,129,125,128,152,1,276,283,136,268,101,112,16,25,226,153,50,99,263,116,147,291,264,2,258,271,270,214,41,286,9,52,279,71,132,12,215,40,272,85,133,87,27,148,59,259,42,100,163,262,211,192,252,180,114,255,227,36,102,110,26,269,145,81,45,228,55,212,17,229,158,261,169,162,260,275,37,46,69,138,3,256,83,171,223,22,292,70,167,5,188,289,210,54,190,170,28,203,194,236,216,91,34,79,7,43,48,159,80,146,139,208,207,284,113,90,39,248,137,280,200,115,97,77,89,177,121,201,164,62,150,130,118,30,205,230,131,61,123,106,6,178,242,231,56,124,220,209,204,134,232,290,195,287,126,47,88,253,127,218,18,196,141,244,53,21,94,108,174,173,49,179,51,64,155,63,86,67,149,161,144,165,251,184,23,274,122,107,166,57,60,240,105,31,84,98,156,92,293,93,185,250,247,224,154,135,65,257,249,4,13,10,206,222,213,217,117,66,104,58,243,241,254,246,120,168,225,219,172,221,191,202,38,119,72,33,182,20,103,245,78,76,19,95,181,193,8,237,140,183,160,11,176,82,35,175,111,109,96,238,235,239,234,157,233 : 293
+
