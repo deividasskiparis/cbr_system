@@ -35,6 +35,8 @@ class Case_Base(object):
         self.weights = None
         self.leix_map = None
         self.leix_alpha = None
+        self.data_normalized = False
+        self.labels_normalized = False
 
     ## Loads data into the CaseBase obejct
     #  @param X Predictors
