@@ -7,12 +7,17 @@ Coursework for Advanced Machine Learning Topics (AMLT)
 Master of Artificial Intelligence  
 UPC, Barcelona, 2016  
 
-## Authors: ##
+## Authors ##
 * Deividas Skiparis
 * Jérôme Charrier
 * Simon Savornin
 * Daniel Siqueira
 
+## Structure of the delivered ZIP file ##
+* dataFromKaggle - Folder containing data used for testing. train301.csv contains binarized dataset with 301 dimensions; train79.csv is an original dataset from kaggle. Both files have had outliers removed.
+* Documentation - Folder containing all the documentation and function references. Use Documentation/Documentation.html to access it.
+* kNNweights - Folder containing .csv of feature weights, used for weighted Retrieval.
+* root folder - contains report, user manual, all the functions and packages. Their names are self-explanatory
 
 ## Getting Started
 
