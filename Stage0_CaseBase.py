@@ -35,6 +35,8 @@ class Case_Base(object):
         self.weights = None
         self.leix_map = None
         self.leix_alpha = None
+        self.data_normalized = False
+        self.labels_normalized = False
 
     ## Loads data into the CaseBase obejct
     #  @param X Predictors
@@ -101,8 +103,8 @@ class Retrieved_CaseBase(object):
         # Perform KNN retrieval
         _, idxs, new_case_all_num, ret_all_num = kNN(self.case_base.data, self.new_case, self.K,
                                                      dist_meas=self.dist_meas,
-                                                     LEIX_map=case_base.leix_map,
-                                                     LEIX_alpha=case_base.leix_alpha,
+                                                     EIX_map=case_base.leix_map,
+                                                     EIX_alpha=case_base.leix_alpha,
                                                      attr_weights=case_base.weights)
 
         # Retrieved indices

@@ -1,4 +1,4 @@
-##@package make_LEixample_Map
+##@package make_Eixample_map
 # Creation of Eixample map for using Eixample distance for retrieval
 
 # Authors:  Deividas Skiparis [deividas.skiparis@outlook.com]
@@ -14,11 +14,12 @@ import numpy as np
 from numpy import genfromtxt
 import sys
 
-## The main function to make Eixample map.
+## The main function to make Eixample map
 #  @param case_base Array with data
 #  @param out_fn Output filename
 #  @param headers Boolean if the case_base array contains headers
 def make_LEIX_map(case_base, out_fn = "LEIX_map.csv", headers=False):
+
     # Map values:
     # Row 0 - Data type
     # Row 1 - Number of modalities
@@ -46,6 +47,7 @@ def make_LEIX_map(case_base, out_fn = "LEIX_map.csv", headers=False):
         attr[mask] = '0'
         att_min = 0
         att_max = 0
+
         # Question 1 - Data type
         while(True):
             message = "\nAttribute " + str(col) + " - " + str(attr_names[col]) + "\n"
@@ -146,11 +148,12 @@ def make_LEIX_map(case_base, out_fn = "LEIX_map.csv", headers=False):
 if __name__ == "__main__":
 
     if len(sys.argv) == 3:
-        input_name = sys.argv[1]
-        output_name = sys.argv[2]
+        __input_name = sys.argv[1]
+        __output_name = sys.argv[2]
 
-        my_data = genfromtxt(input_name, dtype=None, names=None, delimiter=',')
-        make_LEIX_map(my_data, headers=True, out_fn=output_name)
+        __my_data = genfromtxt(__input_name, dtype=None, names=None, delimiter=',')
+
+        make_LEIX_map(__my_data, __output_name, True)
 
     else:
         print ("ERROR: Bad arguments provided. \n\nUsage: %s path/to/input/file.csv path/to/output/file.csv" % sys.argv[0])
