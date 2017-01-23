@@ -68,8 +68,10 @@ error_reuse, prct_error = CBR_Revise(CB_ret)
 retained = CBR_Retain(CB_ret, strategy="Regular", std_thresh=0.015)
 
 # Print some statistics
-print "New case label - ", new_case_demo_y
-print "Reused case label - ", denormalize(CB_ret.reused_label, CB_ret.case_base.lbl_min, CB_ret.case_base.lbl_max)
-print "Error - ", denormalize(CB_ret.reused_label, CB_ret.case_base.lbl_min, CB_ret.case_base.lbl_max) ,"(", prct_error[0][0], ")"
-print "New case retained - ", retained
+print "#####    Demo run for CBR system    #####\n"
+print "Randomly selected test case id:", idx
+print "Test case label - ", round(new_case_demo_y[0][0],2)
+print "Reused case label - ", round(denormalize(CB_ret.reused_label[0][0], CB_ret.case_base.lbl_min, CB_ret.case_base.lbl_max),2)
+print "Error - ", round(denormalize(CB_ret.reused_label[0][0], CB_ret.case_base.lbl_min, CB_ret.case_base.lbl_max),2) ,"(", round(prct_error[0][0],2), "%)"
+print "Test case retained? - ", retained
 print "Case-base size before/after - ", N, "/", CB.data.shape[0]

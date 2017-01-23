@@ -63,17 +63,27 @@ $(function() {
 <div class="title">House Price Prediction CBR </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p>Coursework for Advanced Machine Learning Topics (AMLT) Master of Artificial Intelligence UPC, Barcelona, 2016</p>
-<h1>Link to Latex File</h1>
-<p>Document all design decisions you make! List the discarded options! Just make some bulletpoints about the pros and cons of each option. We want to show that we have put some thoughts in the design of the system! <a href="https://www.overleaf.com/7357518prpdcmcqqbym#/25479461/">https://www.overleaf.com/7357518prpdcmcqqbym#/25479461/</a></p>
-<p>Link to the report: <a href="https://www.overleaf.com/7711812ndbdyzztgdyk#/27034744/">https://www.overleaf.com/7711812ndbdyzztgdyk#/27034744/</a></p>
+<div class="textblock"><p>This is a Case Based Reasoning System developed in python. Designed for predicting house prices, but built adaptable for other applications.</p>
+<p>Coursework for Advanced Machine Learning Topics (AMLT) Master of Artificial Intelligence UPC, Barcelona, 2016</p>
 <h2>Authors:</h2>
 <ul>
 <li>Deividas Skiparis</li>
 <li>Jérôme Charrier</li>
 <li>Simon Savornin</li>
-<li>Daniel Siqueira </li>
+<li>Daniel Siqueira</li>
 </ul>
+<h2>Getting Started</h2>
+<p>These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.</p>
+<h3>Prerequisites</h3>
+<p>The system requries Python 2.* to be installed on your local machine. The code was tested and verified to run Windows and Ubuntu machines.</p>
+<h3>Installing</h3>
+<p>In order to install the CBR system, open command window in the location where the package was extracted and run the following line</p>
+<div class="fragment"><div class="line">python setup.py install</div></div><!-- fragment --><p>All the dependencies will be installed automatically.</p>
+<p>To verify the installation was correct, try:</p>
+<div class="fragment"><div class="line">python demo.py</div></div><!-- fragment --><p>If the system runs correctly similar outcome will be displayed:</p>
+<div class="fragment"><div class="line">&gt;python demo.py</div><div class="line">#####    Demo run for CBR system    #####</div><div class="line"></div><div class="line">Randomly selected test case id: 625</div><div class="line">Test case label -  160000.0</div><div class="line">Reused case label -  137178.58</div><div class="line">Error -  137178.58 ( -0.18 %)</div><div class="line">Test case retained? -  True</div><div class="line">Case-base size before/after -  1459 / 1460</div></div><!-- fragment --><h2>Running the tests</h2>
+<p>To run the tests, which were performed to assess the CBR engine, run: </p><div class="fragment"><div class="line">python testing.py</div></div><!-- fragment --><p>The testing procedure will perform 2 test runs and will display progress along the way</p>
+<div class="fragment"><div class="line">Stage 1 started:  2017-01-23 20:41:21.785000</div><div class="line">Iteration:  1 of 600</div><div class="line">Distance metric:  MANH+W</div><div class="line">Retention Strategy:  Regular</div><div class="line">k :  2</div><div class="line">Fold :  1  of  10</div><div class="line">[################### ] 97% (116 of 119)</div></div><!-- fragment --><p>The testing procedure will generate 1 csv output file with results for Euclidean and Manhattan distances and 1 csv output file for Eixample distance </p>
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

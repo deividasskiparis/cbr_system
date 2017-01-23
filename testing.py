@@ -250,7 +250,7 @@ def test_2():
 if __name__ == "__main__":
     S1_start = datetime.datetime.now()
     print "Stage 1 started: ", S1_start
-    # test_1()
+    test_1()
 
     S2_start = datetime.datetime.now()
     print "Stage 2 started: ", S2_start

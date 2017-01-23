@@ -1,19 +1,12 @@
 # House Price Prediction CBR # {#index}
 
-This is a Case Based Reasoning System developed in python. Designed for predicting house prices, but build with 
+This is a Case Based Reasoning System developed in python. Designed for predicting house prices, but built adaptable
+ for other applications.
 
 Coursework for Advanced Machine Learning Topics (AMLT)  
 Master of Artificial Intelligence  
 UPC, Barcelona, 2016  
 
-  
-# Link to Latex File #
-Document all design decisions you make! List the discarded options! Just make some bulletpoints about the pros and cons of each option. 
-We want to show that we have put some thoughts in the design of the system!
-https://www.overleaf.com/7357518prpdcmcqqbym#/25479461/
-
-Link to the report: https://www.overleaf.com/7711812ndbdyzztgdyk#/27034744/
-  
 ## Authors: ##
 * Deividas Skiparis
 * Jérôme Charrier
@@ -21,91 +14,68 @@ Link to the report: https://www.overleaf.com/7711812ndbdyzztgdyk#/27034744/
 * Daniel Siqueira
 
 
-
-# Project Title
-
-One Paragraph of project description goes here
-
 ## Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 
 ### Prerequisites
 
-What things you need to install the software and how to install them
-
-```
-Give examples
-```
+The system requries Python 2.* to be installed on your local machine. The code was tested and verified
+to run Windows and Ubuntu machines.
 
 ### Installing
 
-A step by step series of examples that tell you have to get a development env running
-
-Say what the step will be
-
-```
-Give the example
-```
-
-And repeat
+In order to install the CBR system, open command window in the location
+ where the package was extracted and run the following line
 
 ```
-until finished
+python setup.py install
 ```
 
-End with an example of getting some data out of the system or using it for a little demo
+All the dependencies will be installed automatically.
+
+To verify the installation was correct, try:
+
+```
+python demo.py
+```
+
+If the system runs correctly similar outcome will be displayed:
+
+```
+>python demo.py
+#####    Demo run for CBR system    #####
+
+Randomly selected test case id: 625
+Test case label -  160000.0
+Reused case label -  137178.58
+Error -  137178.58 ( -0.18 %)
+Test case retained? -  True
+Case-base size before/after -  1459 / 1460
+```
+
 
 ## Running the tests
 
-Explain how to run the automated tests for this system
-
-### Break down into end to end tests
-
-Explain what these tests test and why
-
+To run the tests, which were performed to assess the CBR engine,
+run:
 ```
-Give an example
+python testing.py
 ```
 
-### And coding style tests
-
-Explain what these tests test and why
+The testing procedure will perform 2 test runs and will display progress along the way
 
 ```
-Give an example
+
+
+Stage 1 started:  2017-01-23 20:41:21.785000
+Iteration:  1 of 600
+Distance metric:  MANH+W
+Retention Strategy:  Regular
+k :  2
+Fold :  1  of  10
+[################### ] 97% (116 of 119)
 ```
 
-## Deployment
-
-Add additional notes about how to deploy this on a live system
-
-## Built With
-
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
-* [Maven](https://maven.apache.org/) - Dependency Management
-* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
-
-## Contributing
-
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
-
-## Versioning
-
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
-
-## Authors
-
-* **Billie Thompson** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
-
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
-
-## Acknowledgments
-
-* Hat tip to anyone who's code was used
-* Inspiration
-* etc
+The testing procedure will generate 1 csv output file with results for Euclidean and Manhattan distances
+and 1 csv output file for Eixample distance
