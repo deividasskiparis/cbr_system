@@ -26,14 +26,14 @@ def test_1():
     y = y.astype(np.float, copy=False)
 
     CB = Case_Base()
-    CB.load_weights(file_name='kNNweights/weights301N.csv')
+    CB.load_weights(file_name='kNNweights/weights301RED.csv')
 
 
     # Testing parameters
-    n_splits = 5
-    distance_metrics = ["EUCL+W", "EUCL", "MANH+W", "MANH"]
+    n_splits = 10
+    distance_metrics = ["MANH+W", "MANH", "EUCL+W", "EUCL"]
     ret_strategies = ["Regular", "Always", "Never"]
-    ks = [10]
+    ks = [2,3,5,7,10]
 
 
     total_iters = len(distance_metrics) * len(ret_strategies) * len(ks) * n_splits
@@ -41,7 +41,7 @@ def test_1():
 
     kf = KFold(n_splits=n_splits, shuffle=True)
 
-    stats1 = np.zeros((total_iters, 13),dtype='|S20')
+    stats1 = np.zeros((total_iters, 14),dtype='|S20')
     # 0 - iter_id
     # 1 - distance metric
     # 2 - retention strategy
@@ -91,6 +91,7 @@ def test_1():
                     print "Fold : ", split + 1, " of ", n_splits
                     prg = ProgressBar(n_test_cases)
 
+                    labels = np.zeros((X_test.shape[0], 2))
                     for idx, nc in enumerate(X_test):
 
                         CB_ret = CBR_retrieve(case_base=CB,
@@ -101,9 +102,12 @@ def test_1():
 
                         CBR_Reuse(CB_ret)
                         er, prct = CBR_Revise(CB_ret)
-                        print "GT:",CB_ret.new_case_y
-                        print "Retrieved:", CB_ret.ret_labels
-                        print "Reused:", CB_ret.reused_label,"\n"
+
+                        labels[idx, 0] = CB_ret.reused_label
+                        labels[idx, 1] = CB_ret.new_case_y
+                        # print "GT:",CB_ret.new_case_y
+                        # print "Retrieved:", CB_ret.ret_labels
+                        # print "Reused:", CB_ret.reused_label,"\n"
                         # print "case", test_index[idx], "\terror:", er, "\tpercentage:", prct
 
                         error[idx] = er
@@ -122,6 +126,17 @@ def test_1():
                     stats1[iter_id, 10] = str(np.max(error))
                     stats1[iter_id, 11] = str(np.std(error))
                     stats1[iter_id, 12] = str(np.average(prcts))
+
+                    SSE = 0
+                    SST = 0
+
+                    for x in range(labels.shape[0]):
+                        SSE += (labels[x, 0] - labels[x, 1])**2
+                        SST += (labels[x, 1] - np.average(labels[:, 1]))**2
+                    Rsq = 1 - (SSE/SST)
+                    print "RSQ:", Rsq
+                    stats1[iter_id, 13] = str(Rsq)
+
                     split += 1
                     iter_id += 1
 
@@ -143,10 +158,10 @@ def test_2():
 
     # Testing parameters
     distance_metrics = ["LEIX"]
-    leix_alphas = [0.95,0.75,0.6,0.5]
-    n_splits = 5
+    leix_alphas = [0.95, 0.75, 0.6, 0.5]
+    n_splits = 10
     ret_strategies = ["Always", "Never", "Regular"]
-    ks = [15]
+    ks = [2,3,5,7,10]
 
     total_iters = len(distance_metrics) * len(ret_strategies) * len(ks) * len(leix_alphas) * n_splits
 
@@ -155,7 +170,6 @@ def test_2():
 
     iter_id = 0
 
-    t = Timer()
     for distance_metric in distance_metrics:
         for ret_strategy in ret_strategies:
             for k in ks:
@@ -185,9 +199,7 @@ def test_2():
                         feat_select[72] = True
                         feat_select[74:78] = True
 
-                        t.tic()
                         CB.load_data(X_train, y_train, norm_feats=True,feats_select=feat_select, norm_labels=False)
-                        t.toc("Load data:")
                         CB.leix_alpha = leix_alpha
 
                         stats2[iter_id, 6] = CB.data.shape[0]
@@ -203,26 +215,18 @@ def test_2():
                         prg = ProgressBar(n_test_cases)
 
                         for idx, nc in enumerate(X_test):
-                            t.tic()
                             CB_ret = CBR_retrieve(case_base=CB,
                                                   new_case=np.array([nc]),
                                                   new_label=np.array([y_test[idx]]),
                                                   k=k,
                                                   dist_meas=distance_metric)
 
-                            t.toc("Retrieve")
-                            t.tic()
                             CBR_Reuse(CB_ret)
-                            t.toc("Reuse")
-                            t.tic()
                             er, prct = CBR_Revise(CB_ret)
-                            t.toc("Revise")
                             print "case", test_index[idx], "\terror:", er, "\tpercentage:", prct
                             error[idx] = er
                             prcts[idx] = prct
-                            t.tic()
                             CBR_Retain(CB_ret, strategy=ret_strategy, std_thresh=10000)
-                            t.toc("Retain")
                             # prg.update(idx + 1)
 
                         print "\n\n"
@@ -246,7 +250,7 @@ def test_2():
 if __name__ == "__main__":
     S1_start = datetime.datetime.now()
     print "Stage 1 started: ", S1_start
-    test_1()
+    # test_1()
 
     S2_start = datetime.datetime.now()
     print "Stage 2 started: ", S2_start

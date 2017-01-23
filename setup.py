@@ -68,7 +68,7 @@ setup(
     # your project is installed. For an analysis of "install_requires" vs pip's
     # requirements files see:
     # https://packaging.python.org/en/latest/requirements.html
-    install_requires=['datetime', 'sklearn'],
+    install_requires=['numpy', 'matplotlib', 'datetime', 'sklearn'],
 
     #
     # # To provide executable scripts, use entry points in preference to the

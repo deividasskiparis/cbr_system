@@ -1,45 +1,91 @@
+##@package kNN
+# Contains custom kNN function used for Retrieval in CBR process
+#
+
+# Authors:  Deividas Skiparis [deividas.skiparis@outlook.com]
+#           Jerome Charrier
+#           Daniel Siqueira
+#           Simon Savornin
+# Advanced Machine Learning Techniques (AMLT)
+# Masters of Artificial Intelligence, 2016
+# Universitat Politecnica de Catalunya, Barcelona
+
+
 import numpy as np
 from matplotlib import pyplot as plt
 from numpy import genfromtxt
 from itertools import compress
 
 
-def kNN(case_base, new_case, k, dist_meas = "EUCL", attr_weights = None, LEIX_map = None, LEIX_alpha = 0.5):
+## k-nearest neighbour (kNN) function.
+#  Compares a new case in the feature space and returns k most closely matching instances, based on the selected
+#  similarity measure
+#  @param case_base numpy array of data of shape (row c column) N x D, where N is instances and D - dimensionality
+#  @param new_case A new instance of data to be compared to all instances in case_base [1 x D]
+#  @param k Number of nearest neighbours
+#  @param dist_meas Similarity measure. Avalable values are "EUCL+W", "EUCL", "MANH+W", "MANH", "LEIX" for Euclidean
+#  Manhattan and Eixample similarity measure. +W = Weighted.
+#  @param attr_weights attribute weights for weighted retrieval. If the dist_meas has "+W" suffix or is "LEIX", this is
+#  required.
+#  @param EIX_map An array, containing information about data. Created using make_Eixample_map.py
+#  @param eix_alpha Eixample threshold. Numerical features with weights above this threshold are treated as lineal
+#  @retval dists Distances from k most similar cases
+#  @retval idxs Row indices of the most ismilar cases in the case_base
+#  @retval new_case_allNum All numerical representation of new_case. Used for Eixample distance measure.
+#  @retval case_base_allNum All numerical representation of retrieved cases. Used for Eixample distance measure.
+def kNN(case_base, new_case, k, dist_meas = "EUCL", attr_weights = None, EIX_map = None, EIX_alpha = 0.5):
     # Returns k-nearest-neighbors to new_case from the case_base
     # dist_measure: DIST_EUCL - Euclidean distance
     #               DIST_MANH - Manhattan distance
-    #               DIST_LEIX - l'Eixample distance
+    #               DIST_LEIX - Eixample distance
 
-
+    ## Return Kronecker_delta of two variables
+    #  @param val1 Value 1. Can be numerical or categorical
+    #  @param val2 Value 2. Can be numerical or categorical
+    #  @retval equal Returns 1 if the values are identical. Otherwise, 0
     def Kronecker_delta(val1, val2):
         if val1 == val2:
             return 1
         return 0
-    def LEIX_dist(vector1, vector2, LEIX_map, attr_weights, LEIX_alpha):
+
+    ## Calculates Eixample distance between two vectors
+    #  @param vector1 Numpy array of values [1 x D]
+    #  @param vector2 Numpy array of values [1 x D]
+    #  @param EIX_map An array, containing information about data. Created using make_Eixample_map.py
+    #  @param attr_weights attribute weights for weighted retrieval. If the dist_meas has "+W" suffix or is "LEIX", this is
+    #  required.
+    #  @param Eix_alpha Eixample threshold. Numerical features with weights above this threshold are treated as lineal
+
+    #  @param val2 Value 2. Can be numerical or categorical
+    #  @retval equal Returns 1 if the values are identical. Otherwise, 0
+    def LEIX_dist(vector1, vector2, EIX_map, attr_weights, EIX_alpha):
         np.seterr(all='warn')
         # Calculates L'Eixample distance between two vectors
         assert vector1.shape == vector2.shape
-        assert vector1.shape[0] == LEIX_map.shape[1]
+        assert vector1.shape[0] == EIX_map.shape[1]
 
         numr = 0
         denom = 0
         dist = 0
 
+        # Numerical representation of input vectors
         vec1_allNum = np.zeros(vector1.shape, dtype = np.float)
         vec2_allNum = np.zeros(vector1.shape, dtype = np.float)
-        for col in range(LEIX_map.shape[1]):
-            L_col = LEIX_map[:, col]
+
+        # Iterate through every feature
+        for col in range(EIX_map.shape[1]):
+            L_col = EIX_map[:, col]
             att_type = L_col[0]
 
             att_val1 = vector1[col]
             att_val2 = vector2[col]
 
+            # Check for missing values
             if att_val1 == '?' or att_val2 == '?':
                 continue
 
-
-
-            if att_type == '0' and attr_weights[0, col] < LEIX_alpha:
+            # Calculate weight according to the formulas provided in the paper
+            if att_type == '0' and attr_weights[0, col] < EIX_alpha:
                 att_val1 = float(vector1[col])
                 att_val2 = float(vector2[col])
 
@@ -49,7 +95,7 @@ def kNN(case_base, new_case, k, dist_meas = "EUCL", attr_weights = None, LEIX_ma
                 vec1_allNum[col] = att_val1 /(up_val - low_val)
                 vec2_allNum[col] = att_val2 / (up_val - low_val)
 
-            elif (att_type == '0' and attr_weights[0, col] > LEIX_alpha):
+            elif (att_type == '0' and attr_weights[0, col] > EIX_alpha):
                 att_val1 = float(vector1[col])
                 att_val2 = float(vector2[col])
 
@@ -97,6 +143,7 @@ def kNN(case_base, new_case, k, dist_meas = "EUCL", attr_weights = None, LEIX_ma
                     else:
                         continue
 
+
                 dist = float(abs(cat_val1 - cat_val2)) / n_mods
                 vec1_allNum[col] = float(cat_val1) / n_mods
                 vec2_allNum[col] = float(cat_val2) / n_mods
@@ -123,6 +170,7 @@ def kNN(case_base, new_case, k, dist_meas = "EUCL", attr_weights = None, LEIX_ma
     d_meas = dist_meas[:4]
     weighted = (dist_meas[-2:] == "+W" or d_meas == "LEIX")
 
+    # Check for data correctness
     assert (d_meas == "EUCL" or d_meas == "MANH" or d_meas == "LEIX")
     assert (case_base_dims == new_case_dims and new_case_n == 1)
     if weighted:
@@ -130,9 +178,9 @@ def kNN(case_base, new_case, k, dist_meas = "EUCL", attr_weights = None, LEIX_ma
         assert  attr_weights.shape[1] == case_base_dims and attr_weights.shape[0] == 1
 
     if d_meas == "LEIX":
-        assert attr_weights is not None and LEIX_map is not None
-        assert LEIX_map.shape[1] == case_base_dims
-        assert LEIX_alpha >= 0 and LEIX_alpha <= 1
+        assert attr_weights is not None and EIX_map is not None
+        assert EIX_map.shape[1] == case_base_dims
+        assert EIX_alpha >= 0 and EIX_alpha <= 1
 
 
     if d_meas == "EUCL":
@@ -165,14 +213,19 @@ def kNN(case_base, new_case, k, dist_meas = "EUCL", attr_weights = None, LEIX_ma
             diff *= attr_tiled
 
         dist_eucl = np.linalg.norm(diff,ord=2, axis=1)
-        # Get k minimum (unsorted!!!)
+        # Get k minimum (unsorted!!!). Using argpartition for speed
         uns_min_idxs = np.argpartition(dist_eucl,k)[:k]
 
+        # Get distances of k nearest neighbours (unsorted!!!)
         uns_red_dists = dist_eucl[uns_min_idxs]
+
+        # Get indices of sorted distances from lowest to highest
         s_min_idxs = [i[0] for i in sorted(enumerate(uns_red_dists), key=lambda x: x[1])]
 
+        # Get sorted indices relative to case_base
         sorted_idxs = uns_min_idxs[s_min_idxs]
 
+        # Get all numerical features
         new_case_allNum = np.array([new_tiled[0, :]])
         case_base_allNum = case_base[sorted_idxs, :]
 
@@ -209,14 +262,20 @@ def kNN(case_base, new_case, k, dist_meas = "EUCL", attr_weights = None, LEIX_ma
             diff *= attr_tiled
 
         dist_manh = np.linalg.norm(diff,ord=1, axis=1)
-        # Get k minimum (unsorted!!!)
+
+        # Get k minimum (unsorted!!!). Using argpartition for speed
         uns_min_idxs = np.argpartition(dist_manh,k)[:k]
 
+        # Get distances of k nearest neighbours (unsorted!!!)
         uns_red_dists = dist_manh[uns_min_idxs]
+
+        # Get indices of sorted distances from lowest to highest
         s_min_idxs = [i[0] for i in sorted(enumerate(uns_red_dists), key=lambda x: x[1])]
 
+        # Get sorted indices relative to case_base
         sorted_idxs = uns_min_idxs[s_min_idxs]
 
+        # Get all numerical features
         new_case_allNum = np.array([new_tiled[0, :]])
         case_base_allNum = case_base[sorted_idxs, :]
 
@@ -225,17 +284,23 @@ def kNN(case_base, new_case, k, dist_meas = "EUCL", attr_weights = None, LEIX_ma
     elif d_meas == "LEIX":
 
         dist_leix = np.zeros(case_base_n,dtype=float)
-        dist_leix[0], new_case_allNum, case_base_allNum = LEIX_dist(new_case[0], case_base[0, :], LEIX_map, attr_weights, LEIX_alpha)
+
+        # Loop through all cases in the case_base and compare to new case individually
+        dist_leix[0], new_case_allNum, case_base_allNum = LEIX_dist(new_case[0], case_base[0, :], EIX_map, attr_weights, EIX_alpha)
         for row in range(1, case_base_n):
-            dist_leix[row], _, all_num_ = LEIX_dist(new_case[0], case_base[row, :], LEIX_map, attr_weights, LEIX_alpha)
+            dist_leix[row], _, all_num_ = LEIX_dist(new_case[0], case_base[row, :], EIX_map, attr_weights, EIX_alpha)
             case_base_allNum = np.append(case_base_allNum, all_num_,axis=0)
 
-        # Get k minimum (unsorted!!!)
+        # Get k minimum (unsorted!!!). Using argpartition for speed
         uns_min_idxs = np.argpartition(dist_leix,k)[:k]
 
+        # Get distances of k nearest neighbours (unsorted!!!)
         uns_red_dists = dist_leix[uns_min_idxs]
+
+        # Get indices of sorted distances from lowest to highest
         s_min_idxs = [i[0] for i in sorted(enumerate(uns_red_dists), key=lambda x: x[1])]
 
+        # Get sorted indices relative to case_base
         sorted_idxs = uns_min_idxs[s_min_idxs]
 
         return uns_red_dists[s_min_idxs], sorted_idxs, new_case_allNum, case_base_allNum[sorted_idxs, :]
